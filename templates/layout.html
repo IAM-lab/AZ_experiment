@@ -1,0 +1,94 @@
+<!--
+ *
+ * NAME:			layout.html
+ * AUTHOR:			Alan Davies
+ * DATE:			05/02/2019
+ * INSTITUTION:		Interaction Analysis and Modelling Lab (IAM), University of Manchester
+ * DESCRIPTION:		Main layout page inherited by other pages in the project.
+ *
+-->
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="AZ experiment">
+        <meta name="author" content="Alan Davies">
+        <meta name="keywords" content="keywords">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+        <title>AZ visualisations</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/css/bootstrap-select.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.7.5/js/bootstrap-select.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+
+
+
+        <!-- js files -->
+        <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/question.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+        <!-- load supporting css and JS files -->
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <link href="{{ url_for('static', filename='css/az.css') }}" rel="stylesheet" media="screen">
+
+        <script type=text/javascript>
+            $SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
+
+            $(document).ready(function () {
+                initializeMain();
+            });
+
+        </script>
+
+    </head>
+    <body>
+
+        <!-- navigation bar -->
+        <nav id="main-nav-bar" class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <img class="logo-img" src="{{ url_for('static', filename='images/logo.PNG') }}" />
+                </div>
+            </div>
+        </nav>
+
+        <!-- main content -->
+        <div class="container-fluid text-center">
+            <div class="row content">
+                 <div class="col-md-12">
+                     {% block mainText %}
+                     {% endblock %}
+                 </div>
+            </div>
+        </div>
+
+        <!-- preload images -->
+        <div id="image-preloader">
+
+        </div>
+
+        <!-- mask for popups -->
+        <div id="page-mask"></div>
+
+        <div title="regular tooltip" id="point-data"></div>
+
+    </body>
+</html>

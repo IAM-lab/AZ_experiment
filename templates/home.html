@@ -1,0 +1,827 @@
+<!-- inherit from layout page -->
+{% extends "layout.html" %}
+
+<!-- text for jumbo block -->
+{% block mainText %}
+
+<div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-1 sidenav">
+            </div>
+            <div class="col-sm-10 text-left" style="width:100%;">
+                <div class="banner-text">
+                    <br />
+                    <div class="p-3 mb-2 bg-info text-whit info-box">
+                        <h3><span class="glyphicon glyphicon-info-sign"></span> Please read the instructions carefully before starting:</h3>
+                    </div>
+                    <br>
+                    <p>
+                        You are about to take part in an experiment conducted by the <strong>University of Manchester</strong> and the Advanced Analytics Centre at <strong>AstraZeneca</strong>.
+                        <br /><br />
+                        During this experiment you will asked to view a series of visualisations based on biomarker data. You will first be asked to complete some short background questions
+                        and complete some general about reading information from graphs. You will then be asked to use the visualisation to complete a short task.
+                        Following each visualisation you will be asked a series of questions.
+                    </p>
+                    <p>
+                        If you want to take part in the study you must first read the participant information sheet and provide consent.
+                    </p>
+                    <br />
+                    <button type="button" class="btn btn-dark" onclick="popupController.showPopup();">Read participant information</button>
+                    <br /><br />
+                    <form action="{{ url_for('getDemographicData') }}" method="POST">
+                        <button id="begin-study" type="submit" class="btn btn-dark" disabled>Begin study</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-1 sidenav">
+            </div>
+        </div>
+</div>
+
+<div id="PIS-popup">
+    <div class="pis-popup-inner">
+        <h3>Participant Information Sheet</h3>
+        <br>
+        <div id="pis-popup-text">
+            <p>
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                v
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+                dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+ dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdfv dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf dfkldsjk;dljgdff
+                fdgfdg
+                df
+                fd
+                g
+                fdg
+                dfssdf
+
+
+
+
+            </p>
+
+        </div>
+        <br />
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="consent-check" disabled onclick="popupController.consented();">
+            <label class="custom-control-label" for="consent-check">I have read the participant information and agree to take part</label>
+        </div>
+        <br>
+        <button id="pis-popup-ok" type="button" class="btn btn-dark" disabled onclick="popupController.enableStudyStart();">Ok</button>
+        <button type="button" class="btn btn-dark" onclick="popupController.hidePopup();">Close</button>
+    </div>
+
+</div>
+
+{% endblock %}
+

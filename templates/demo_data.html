@@ -1,0 +1,111 @@
+<!-- inherit from layout page -->
+{% extends "layout.html" %}
+
+<!-- text for jumbo block -->
+{% block mainText %}
+
+<div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-1 sidenav">
+            </div>
+            <div class="col-sm-10 text-left" style="width:100%;">
+                <form action="{{ url_for('graphLiteracyScale') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
+                    <div class="question-section">
+                        <span>What sex were you assigned at birth, on your original birth certificate?</span>
+                        <br />
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="birth-sex-male" name="birth-sex">
+                            <label class="custom-control-label" for="birth-sex-male">Male</label>
+                            <input type="radio" class="custom-control-input" id="birth-sex-female" name="birth-sex">
+                            <label class="custom-control-label" for="birth-sex-female">Female</label>
+                        </div>
+                        <br />
+                        <span>How do you describe yourself? (check one)</span>
+                        <br />
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="current-sex-male" name="current-sex">
+                            <label class="custom-control-label" for="current-sex-male">Male</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="current-sex-female" name="current-sex">
+                            <label class="custom-control-label" for="current-sex-female">Female</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="current-sex-trans" name="current-sex">
+                            <label class="custom-control-label" for="current-sex-trans">Transgender</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="current-sex-none" name="current-sex">
+                            <label class="custom-control-label" for="current-sex-none">Do not identify as female, male or transgender</label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>What year were you born in?</span>
+                        <br />
+                        <input type="text" id="datepicker" name="year-of-birth" />
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>What is your professional role?</span>
+                        <br />
+                        <input type="text" id="role" name="role" />
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>How familiar are you with biomarker data?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very unfamiliar</strong></td>
+                                    <td><input type="radio" value="1" name="familiarity"/></td>
+                                    <td><input type="radio" value="2" name="familiarity"/></td>
+                                    <td><input type="radio" value="3" name="familiarity"/></td>
+                                    <td><input type="radio" value="4" name="familiarity"/></td>
+                                    <td><input type="radio" value="5" name="familiarity"/></td>
+                                    <td class="likert-right"><strong>Very familiar</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>How often do you use visualisation in your role?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Almost never</strong></td>
+                                    <td><input type="radio" value="1" name="freq"/></td>
+                                    <td><input type="radio" value="2" name="freq"/></td>
+                                    <td><input type="radio" value="3" name="freq"/></td>
+                                    <td><input type="radio" value="4" name="freq"/></td>
+                                    <td><input type="radio" value="5" name="freq"/></td>
+                                    <td class="likert-right"><strong>Very often</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success next-button">Next</button>
+                    <br />
+                </form>
+            </div>
+            <div class="col-sm-1 sidenav">
+            </div>
+        </div>
+</div>
+
+<!-- page script -->
+<script type=text/javascript>
+
+    $("#datepicker").datepicker( {
+        format: " yyyy", // Notice the Extra space at the beginning
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+</script>
+
+{% endblock %}
+

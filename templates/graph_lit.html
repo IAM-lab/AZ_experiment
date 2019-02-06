@@ -1,0 +1,44 @@
+<!-- inherit from layout page -->
+{% extends "layout.html" %}
+
+<!-- text for jumbo block -->
+{% block mainText %}
+
+<div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-1 sidenav">
+            </div>
+            <div class="col-sm-10 text-left" style="width:100%;">
+                <form action="{{ url_for('graphLiteracyScale') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
+                    <div class="question-section">
+                        <span>Q1. Here is some information about cancer therapies</span>
+                        <br /><br />
+                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q1.PNG') }}" />
+                        <br /><br />
+                        <div class="custom-control custom-radio">
+                            <label class="custom-control-label" for="q1">What percentage of patients recovered after chemotherapy?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q1" name="q1">%
+                            <label class="custom-control-label" for="q2">What is the difference between the percentage of patients who recovered after a surgery and the percentage of patients who recoved after radiation therapy?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q2" name="q2">
+                        </div>
+                    </div>
+                    <br />
+                    <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestion();">Next</button>
+                    <!-- check content then move to next question hide and show, final form submit button -->
+
+                </form>
+            </div>
+            <div class="col-sm-1 sidenav">
+            </div>
+        </div>
+</div>
+
+<!-- page script -->
+<script type=text/javascript>
+
+
+
+</script>
+
+{% endblock %}
+
