@@ -12,13 +12,35 @@
     var questionManager = new Object();
 
     // member vars
-    questionManager.questions = new Array();
+    questionManager.numGraphLiteracyQuestionBlocks = 9;
+    questionManager.currentGLQuestionBlock = 1;
 
     // display demographic questions
-    questionManager.nextGLQuestion = function()
+    questionManager.nextGLQuestionBlock = function()
     {
+        var questionBlockIdString = "glq-";
+        var currentBlock = "";
 
+        this.hideAllGLQuestionBlocks();
 
+        this.currentGLQuestionBlock++;
+        currentBlock = questionBlockIdString + String(this.currentGLQuestionBlock);
+        currentBlockElement = document.getElementById(currentBlock);
+        currentBlockElement.style.display = "block";
+    }
+
+    // hide all the GL question blocks
+    questionManager.hideAllGLQuestionBlocks = function()
+    {
+        var questionBlockIdString = "glq-";
+        var currentBlock = "";
+
+        for(var i = 0; i < this.numGraphLiteracyQuestionBlocks; i++)
+        {
+            currentBlock = questionBlockIdString + String(this.currentGLQuestionBlock);
+            currentBlockElement = document.getElementById(currentBlock);
+            currentBlockElement.style.display = "none";
+        }
     }
 
     return questionManager;

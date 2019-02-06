@@ -63,6 +63,10 @@ def getDemographicData():
 def graphLiteracyScale():
     return render_template('graph_lit.html')
 
+@app.route('/begin_study', methods=['POST'])
+def beginStudy():
+    return render_template('display_task.html')
+
 # ---------------------------------------------------------------------------------
 # FUNCTION:     override_url_for()
 # INPUT:        void

@@ -9,22 +9,183 @@
             <div class="col-sm-1 sidenav">
             </div>
             <div class="col-sm-10 text-left" style="width:100%;">
-                <form action="{{ url_for('graphLiteracyScale') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
-                    <div class="question-section">
-                        <span>Q1. Here is some information about cancer therapies</span>
+                <form action="{{ url_for('beginStudy') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
+
+                    <div class="question-section-gl" id="glq-1">
+                        <span>Here is some information about cancer therapies</span>
                         <br /><br />
                         <img class="graph-lit-img" src="{{ url_for('static', filename='images/q1.PNG') }}" />
                         <br /><br />
-                        <div class="custom-control custom-radio">
-                            <label class="custom-control-label" for="q1">What percentage of patients recovered after chemotherapy?</label>
+                        <div class="custom-control">
+                            <label class="custom-control-label" for="q1"><stong>Q1.</stong> What percentage of patients recovered after chemotherapy?</label>
                             <input type="number" min="0" max="100" class="custom-control-input" id="q1" name="q1">%
-                            <label class="custom-control-label" for="q2">What is the difference between the percentage of patients who recovered after a surgery and the percentage of patients who recoved after radiation therapy?</label>
-                            <input type="number" min="0" max="100" class="custom-control-input" id="q2" name="q2">
+                            <label class="custom-control-label" for="q2"><stong>Q2.</stong> What is the difference between the percentage of patients who recovered after a surgery and the percentage of patients who recoved after radiation therapy?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q2" name="q2">%
                         </div>
+                        <br />
+                        <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestionBlock();">Next</button>
                     </div>
-                    <br />
-                    <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestion();">Next</button>
-                    <!-- check content then move to next question hide and show, final form submit button -->
+
+                    <div class="question-section-gl" id="glq-2">
+                        <span>Here is some information about different forms of cancer</span>
+                        <br /><br />
+                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q3.PNG') }}" />
+                        <br /><br />
+                        <div class="custom-control">
+                            <label class="custom-control-label" for="q3"><stong>Q3.</stong> Of all the people who die from cancer, approximately what percentage dies from lung cancer?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q3" name="q3">%
+                            <label class="custom-control-label" for="q4"><stong>Q4.</stong> Approximately what percentage of people who die from cancer die from colon cancer, breast cancer and prostate cancer taken together?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q4" name="q4">%
+                        </div>
+                        <br />
+                        <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestionBlock();">Next</button>
+                    </div>
+
+                    <div class="question-section-gl" id="glq-3">
+                        <span>Here is some information about about an imaginary disease called Adeolitis</span>
+                        <br /><br />
+                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q5.PNG') }}" />
+                        <br /><br />
+                        <div class="custom-control">
+                            <label class="custom-control-label" for="q5"><stong>Q5.</stong> Approximately what percentage of people had Adeolitis in the year 2000?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q5" name="q5">%
+                            <br />
+                            <label class="custom-control-label"><stong>Q6.</stong> When was the increase in the percentage of people with Adeolitis higher?</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="q6-1" name="q6">
+                            <label class="custom-control-label" for="q6-1">From 1975 to 1980</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="q6-2" name="q6">
+                            <label class="custom-control-label" for="q6-2">From 2000 to 2005</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="q6-3" name="q6">
+                            <label class="custom-control-label" for="q6-3">Increase was the same in both intervals</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="q6-4" name="q6">
+                            <label class="custom-control-label" for="q6-4">Don&apos;t know</label>
+                        </div>
+                        <div class="custom-control">
+                            <label class="custom-control-label" for="q7"><stong>Q7.</stong> According to your best guess, what will the percentage of people with Adeolitis be in the year 2010?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q7" name="q7">%
+                        </div>
+                        <br />
+                        <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestionBlock();">Next</button>
+                    </div>
+
+                    <div class="question-section-gl" id="glq-4">
+                        <span>The following figure shows the number of men and women among patients with disease X. The total number of circles is 100.</span>
+                        <br /><br />
+                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q8.PNG') }}" />
+                        <br /><br />
+                        <div class="custom-control">
+                            <label class="custom-control-label" for="q8"><stong>Q8.</stong> Of 100 patients with disease X, how many are women?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q8" name="q8"> women
+                            <br />
+                            <label class="custom-control-label" for="q9"><stong>Q9.</stong> How many more men than women are there among 100 patients with disease X?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q9" name="q9"> men
+                        </div>
+                        <br />
+                        <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestionBlock();">Next</button>
+                    </div>
+
+                    <div class="question-section-gl" id="glq-5">
+                        <span>In a magazine you see two advertisements, one on page 5 and another on page 12. Each is for a different drug for treating heart disease, and each includes a graph showing the effectiveness of the drug compared to a placebo (sugar pill).</span>
+                        <br /><br />
+                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q10.PNG') }}" />
+                        <br /><br />
+                        <div class="custom-control">
+                            <label class="custom-control-label"><stong>Q10.</stong> Compared to the placebo, which treatment leads to a larger decrease in the percentage of patients who die?</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="q10-1" name="q10">
+                                <label class="custom-control-label" for="q10-1">Corsicol</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q10-2" name="q10">
+                                <label class="custom-control-label" for="q10-2">Hertinol</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q10-3" name="q10">
+                                <label class="custom-control-label" for="q10-3">They are equal</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q10-4" name="q10">
+                                <label class="custom-control-label" for="q10-4">Can&apos;t say</label>
+                            </div>
+                            <br />
+                        </div>
+                        <br />
+                        <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestionBlock();">Next</button>
+                    </div>
+
+                    <div class="question-section-gl" id="glq-6">
+                        <span>In a newspaper you see two advertisements, one on page 15 and another on page 17. Each is for a different treatment of psoriasis, and each includes a graph showing the effectiveness of the treatment over time.</span>
+                        <br /><br />
+                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q11.PNG') }}" />
+                        <br /><br />
+                        <div class="custom-control">
+                            <label class="custom-control-label"><stong>Q11.</stong> Which of the treatments contributes to a larger decrease in the percentage of sick patients?</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="q11-1" name="q11">
+                                <label class="custom-control-label" for="q11-1">Apsoriatin</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q11-2" name="q11">
+                                <label class="custom-control-label" for="q11-2">Nopsorian</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q11-3" name="q11">
+                                <label class="custom-control-label" for="q11-3">They are equal</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q11-4" name="q11">
+                                <label class="custom-control-label" for="q11-4">Can&apos;t say</label>
+                            </div>
+                            <br />
+                        </div>
+                        <br />
+                        <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestionBlock();">Next</button>
+                    </div>
+
+                    <div class="question-section-gl" id="glq-7">
+                        <span>Here is some information about the imaginary diseases Coliosis and Tiosis.</span>
+                        <br /><br />
+                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q12.PNG') }}" />
+                        <br /><br />
+                        <div class="custom-control">
+                            <label class="custom-control-label"><stong>Q12.</stong> Between 1980 and 1990, which disease had a higher increase in the percentage of people affected?</label>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="q12-1" name="q12">
+                                <label class="custom-control-label" for="q12-1">Coliosis</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q12-2" name="q12">
+                                <label class="custom-control-label" for="q12-2">Tiosis</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q12-3" name="q12">
+                                <label class="custom-control-label" for="q12-3">The increase was equal</label>
+                                <br />
+                                <input type="radio" class="custom-control-input" id="q12-4" name="q12">
+                                <label class="custom-control-label" for="q12-4">Can&apos;t say</label>
+                            </div>
+                            <br />
+                        </div>
+                        <br />
+                        <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestionBlock();">Next</button>
+                    </div>
+
+                    <div class="question-section-gl" id="glq-8">
+                        <span>Here is some information about cancer therapies.</span>
+                        <br /><br />
+                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q13.PNG') }}" />
+                        <br /><br />
+                        <div class="custom-control">
+                            <label class="custom-control-label" for="q13"><stong>Q13.</stong> What is the percentage of cancer patients who die after chemotherapy?</label>
+                            <input type="number" min="0" max="100" class="custom-control-input" id="q13" name="q13">%
+                            <br />
+                        </div>
+                        <br />
+                        <button type="button" class="btn btn-success next-button" onclick="questionManager.nextGLQuestionBlock();">Next</button>
+                    </div>
+
+                    <div class="question-section-gl" id="glq-9">
+                        <p>You will now see a series of visualisations followed by a few short questions. Click <strong>Next</strong> when you are ready to begin.</p>
+                        <br />
+                        <button type="submit" class="btn btn-success next-button">Next</button>
+                    </div>
 
                 </form>
             </div>

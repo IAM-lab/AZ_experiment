@@ -57,6 +57,13 @@ body {
     font-size:20px;
 }
 
+.question-section-gl {
+    padding:10px;
+    background-color:lightgrey;
+    font-size:20px;
+    display:none;
+}
+
 .likert-table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -104,4 +111,8 @@ body {
 
 .graph-lit-img {
     width:25%;
+}
+
+#glq-1 {
+    display:block;
 }
