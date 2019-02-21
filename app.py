@@ -6,7 +6,7 @@ INSTITUTION:   Interaction Analysis and Modelling Lab (IAM), University of Manch
 DESCRIPTION:   Flask main page.
                http://127.0.0.1:5000/
 """
-import os, sys
+import os, sys, random
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
@@ -63,9 +63,56 @@ def getDemographicData():
 def graphLiteracyScale():
     return render_template('graph_lit.html')
 
+#---------------------------------------------------------------------------------
+# FUNCTION:     beginStudy()
+# INPUT:        void
+# OUTPUT:       template
+# DESCRIPTION:  Setup the study.
+#
+#---------------------------------------------------------------------------------
 @app.route('/begin_study', methods=['POST'])
 def beginStudy():
-    return render_template('display_task.html')
+
+    selected_condition = random.randint(0, 1)
+
+    stimuli_images = ','.join('images/graph' + str(i) + '.png' for i in range(11))
+    stimuli_images = stimuli_images.split(',')
+
+    session['user_data'] = dict()
+    session['user_data'].update({ 'condition': selected_condition })
+    session['user_data'].update({ 'stimuli': stimuli_images })
+    session['user_data'].update({'tasks': [
+        'What was the smallest percentage change from baseline for (biomarker x)?',
+        'Which group has the best survival outcome?',
+        'Which patient displayed the fastest complete response in stage x?',
+        'At what time point was the most rapid change from baseline seen?',
+        'Based on the presented studies about the use of biomarker x for x. is the overall summary favoring the treatment or the control?',
+        'Does the plot suggest that a publication bias exists?',
+        'Which group has the largest range of data?',
+        'Which gene exhibits the largest number/proportion of deletions?',
+        'What region(s) are biomarker x most associated with?',
+        'Which biomarker has the strongest connection to treatment/test x?',
+        'Which genes exhibit truncating mutations?'
+    ] })
+    session['user_data'].update({'runs': 0 })
+
+    return render_template('display_task.html', task_data = showNextImageAndTask(), data = session['user_data'])
+
+#---------------------------------------------------------------------------------
+# FUNCTION:     showNextImageAndTask()
+# INPUT:        void
+# OUTPUT:       Tuple
+# DESCRIPTION:  Pop another image form the array
+#
+#---------------------------------------------------------------------------------
+def showNextImageAndTask():
+
+    remaining_images = len(session['user_data']['stimuli'])
+    rnd_num = random.randint(0, remaining_images - 1)
+    if remaining_images > 0:
+        return session['user_data']['stimuli'].pop(rnd_num), session['user_data']['tasks'].pop(rnd_num)
+    else:
+        return None
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     override_url_for()
