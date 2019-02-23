@@ -9,8 +9,8 @@
             <div class="col-sm-1 sidenav">
             </div>
             <div class="col-sm-10 text-left" style="width:100%;">
-                <form action="{{ url_for('beginStudy') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
-                    {% if data.condition == 0 %}
+                <form action="{{ url_for('processAnswers') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
+                    {% if condition == 0 %}
                     <h3>[Provenance information displayed here!]</h3>
                     <br />
                     {% endif %}

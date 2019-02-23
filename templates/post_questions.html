@@ -1,0 +1,226 @@
+<!-- inherit from layout page -->
+{% extends "layout.html" %}
+
+<!-- text for jumbo block -->
+{% block mainText %}
+
+<div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-1 sidenav">
+            </div>
+            <div class="col-sm-10 text-left" style="width:100%;">
+                <form action="{{ url_for('nextQuestion') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
+
+                     <div class="question-section">
+                        <span>How confident are you using this graph for decision making? (i.e. to show your line manager, regulatory approval, research team)</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very confident</strong></td>
+                                    <td><input type="radio" value="1" name="conf"/></td>
+                                    <td><input type="radio" value="2" name="conf"/></td>
+                                    <td><input type="radio" value="3" name="conf"/></td>
+                                    <td><input type="radio" value="4" name="conf"/></td>
+                                    <td><input type="radio" value="5" name="conf"/></td>
+                                    <td class="likert-right"><strong>Very unconfident</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>Please give a brief reason for your answer</span>
+                        <br />
+                        <input type="text" id="reason" name="reason" />
+                    </div>
+                    <br />
+                    {% if condition == 0 %}
+                     <div class="question-section">
+                        <span>How useful did you find the provenance information?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very useful</strong></td>
+                                    <td><input type="radio" value="1" name="prov-inf"/></td>
+                                    <td><input type="radio" value="2" name="prov-inf"/></td>
+                                    <td><input type="radio" value="3" name="prov-inf"/></td>
+                                    <td><input type="radio" value="4" name="prov-inf"/></td>
+                                    <td><input type="radio" value="5" name="prov-inf"/></td>
+                                    <td class="likert-right"><strong>Useless</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>How would you rate the quality of this information?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very good</strong></td>
+                                    <td><input type="radio" value="1" name="qual"/></td>
+                                    <td><input type="radio" value="2" name="qual"/></td>
+                                    <td><input type="radio" value="3" name="qual"/></td>
+                                    <td><input type="radio" value="4" name="qual"/></td>
+                                    <td><input type="radio" value="5" name="qual"/></td>
+                                    <td class="likert-right"><strong>Very bad</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    {% endif %}
+
+                     <div class="question-section">
+                        <span>How accurate do you think this visualisation is at representing the data well?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very accurate</strong></td>
+                                    <td><input type="radio" value="1" name="accuracy"/></td>
+                                    <td><input type="radio" value="2" name="accuracy"/></td>
+                                    <td><input type="radio" value="3" name="accuracy"/></td>
+                                    <td><input type="radio" value="4" name="accuracy"/></td>
+                                    <td><input type="radio" value="5" name="accuracy"/></td>
+                                    <td class="likert-right"><strong>Very inaccurate</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>If there is any data that can be omitted from the visualisation – which data?</span>
+                        <br />
+                        <input type="text" id="omitted" name="omitted" />
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>Is there any data missing that you have found useful? If so what data?</span>
+                        <br />
+                        <input type="text" id="missing" name="missing" />
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>How believable do you find this information?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very believable</strong></td>
+                                    <td><input type="radio" value="1" name="belief"/></td>
+                                    <td><input type="radio" value="2" name="belief"/></td>
+                                    <td><input type="radio" value="3" name="belief"/></td>
+                                    <td><input type="radio" value="4" name="belief"/></td>
+                                    <td><input type="radio" value="5" name="belief"/></td>
+                                    <td class="likert-right"><strong>Very unbelievable</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>Is there any information that requires clarification? If so, what data?</span>
+                        <br />
+                        <input type="text" id="clarify" name="clarify" />
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>How complete do you find this information?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very complete</strong></td>
+                                    <td><input type="radio" value="1" name="complete"/></td>
+                                    <td><input type="radio" value="2" name="complete"/></td>
+                                    <td><input type="radio" value="3" name="complete"/></td>
+                                    <td><input type="radio" value="4" name="complete"/></td>
+                                    <td><input type="radio" value="5" name="complete"/></td>
+                                    <td class="likert-right"><strong>Very incomplete</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>How interpretable do you find this information?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very interpretable</strong></td>
+                                    <td><input type="radio" value="1" name="interpretable"/></td>
+                                    <td><input type="radio" value="2" name="interpretable"/></td>
+                                    <td><input type="radio" value="3" name="interpretable"/></td>
+                                    <td><input type="radio" value="4" name="interpretable"/></td>
+                                    <td><input type="radio" value="5" name="interpretable"/></td>
+                                    <td class="likert-right"><strong>Very uninterpretable</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                      <div class="question-section">
+                        <span>How complex was the visualisation?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very simple</strong></td>
+                                    <td><input type="radio" value="1" name="complex"/></td>
+                                    <td><input type="radio" value="2" name="complex"/></td>
+                                    <td><input type="radio" value="3" name="complex"/></td>
+                                    <td><input type="radio" value="4" name="complex"/></td>
+                                    <td><input type="radio" value="5" name="complex"/></td>
+                                    <td class="likert-right"><strong>Very complex</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>Do you think the visualization could be simplified? If so, any suggestions?</span>
+                        <br />
+                        <input type="text" id="simplified" name="simplified" />
+                    </div>
+                    <br />
+                    <div class="question-section">
+                        <span>Do you want to leave any additional feedback?</span>
+                        <br />
+                        <input type="text" id="feedback" name="feedback" />
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success next-button">Next</button>
+                    <br />
+                </form>
+            </div>
+            <div class="col-sm-1 sidenav">
+            </div>
+        </div>
+</div>
+
+<!-- page script -->
+<script type=text/javascript>
+
+    $("#datepicker").datepicker( {
+        format: " yyyy", // Notice the Extra space at the beginning
+        viewMode: "years",
+        minViewMode: "years"
+    });
+
+</script>
+
+{% endblock %}
+

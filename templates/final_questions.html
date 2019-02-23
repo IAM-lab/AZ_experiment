@@ -1,0 +1,31 @@
+<!-- inherit from layout page -->
+{% extends "layout.html" %}
+
+<!-- text for jumbo block -->
+{% block mainText %}
+
+<div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-1 sidenav">
+            </div>
+            <div class="col-sm-10 text-left" style="width:100%;">
+                <div class="banner-text">
+                    <br />
+                    <div class="p-3 mb-2 bg-info text-whit info-box">
+                        <h3><span class="glyphicon glyphicon-info-sign"></span> Thank you for taking part</h3>
+                    </div>
+                    <br>
+                    <p>
+                        The experiment is now over. Please close this browser tab/window.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-1 sidenav">
+            </div>
+        </div>
+</div>
+
+
+
+{% endblock %}
+

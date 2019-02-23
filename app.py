@@ -73,14 +73,28 @@ def graphLiteracyScale():
 @app.route('/begin_study', methods=['POST'])
 def beginStudy():
 
+    # pick a random starting position
     selected_condition = random.randint(0, 1)
 
-    stimuli_images = ','.join('images/graph' + str(i) + '.png' for i in range(11))
-    stimuli_images = stimuli_images.split(',')
-
+    # setup experimental conditions and load task images & questions
     session['user_data'] = dict()
     session['user_data'].update({ 'condition': selected_condition })
-    session['user_data'].update({ 'stimuli': stimuli_images })
+    session['user_data'].update({'runs': 0 })
+    populateQuestions()
+
+    return render_template('display_task.html', task_data = showNextImageAndTask(),  condition=session['user_data']['condition'])
+
+#---------------------------------------------------------------------------------
+# FUNCTION:     populateQuestions()
+# INPUT:        void
+# OUTPUT:       void
+# DESCRIPTION:  Add the images and task questions to session data
+#
+#---------------------------------------------------------------------------------
+def populateQuestions():
+    stimuli_images = ','.join('images/graph' + str(i) + '.png' for i in range(11))
+    stimuli_images = stimuli_images.split(',')
+    session['user_data'].update({'stimuli': stimuli_images})
     session['user_data'].update({'tasks': [
         'What was the smallest percentage change from baseline for (biomarker x)?',
         'Which group has the best survival outcome?',
@@ -93,10 +107,7 @@ def beginStudy():
         'What region(s) are biomarker x most associated with?',
         'Which biomarker has the strongest connection to treatment/test x?',
         'Which genes exhibit truncating mutations?'
-    ] })
-    session['user_data'].update({'runs': 0 })
-
-    return render_template('display_task.html', task_data = showNextImageAndTask(), data = session['user_data'])
+    ]})
 
 #---------------------------------------------------------------------------------
 # FUNCTION:     showNextImageAndTask()
@@ -106,13 +117,65 @@ def beginStudy():
 #
 #---------------------------------------------------------------------------------
 def showNextImageAndTask():
-
     remaining_images = len(session['user_data']['stimuli'])
     rnd_num = random.randint(0, remaining_images - 1)
+    print("In showNextImageAndTask, remaining = ", remaining_images)
     if remaining_images > 0:
-        return session['user_data']['stimuli'].pop(rnd_num), session['user_data']['tasks'].pop(rnd_num)
+        print("popin")
+
+        stimuli = session['user_data']['stimuli'].pop(rnd_num)
+        task = session['user_data']['tasks'].pop(rnd_num)
+        session.modified = True
+        print("stimuli = ", stimuli, " Task = ", task)
+
+        return stimuli, task
     else:
         return None
+
+# ---------------------------------------------------------------------------------
+# FUNCTION:     processAnswers()
+# INPUT:
+# OUTPUT:
+# DESCRIPTION:
+#
+# ---------------------------------------------------------------------------------
+@app.route('/submit_answer', methods=['POST'])
+def processAnswers():
+    # TODO: Store given answers in DB and display post answers questions
+    return render_template('post_questions.html', condition=session['user_data']['condition'])
+
+# ---------------------------------------------------------------------------------
+# FUNCTION:     nextQuestion
+# INPUT:        void
+# OUTPUT:       template
+# DESCRIPTION:  Main experimental loop. Keeps shoing new questions until we
+#               run out then changes condition. If both conditions done show end page
+# ---------------------------------------------------------------------------------
+@app.route('/next_question', methods=['POST'])
+def nextQuestion():
+    remaining_questions = len(session['user_data']['stimuli'])
+    print("remaining_questions: ", remaining_questions)
+    if remaining_questions > 0:
+        task_data = showNextImageAndTask()
+        session.modified = True
+        return render_template('display_task.html',  condition=session['user_data']['condition'], task_data = task_data)
+    else:
+        print("Ran out of questions")
+        if session['user_data']['runs'] == 0:
+            populateQuestions()
+            session['user_data']['runs'] += 1
+            session['user_data']['condition'] ^= 1
+            session.modified = True
+            # TODO: Page explaining will see send [condition] with/without
+            print("Repopulated and starting next condition")
+            task_data = showNextImageAndTask()
+            session.modified = True
+            return render_template('display_task.html', condition=session['user_data']['condition'], task_data=task_data)
+        else:
+            # TODO: Show finished experiment page
+            print("End of experiement")
+            return render_template('final_questions.html')
+
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     override_url_for()
@@ -124,7 +187,6 @@ def showNextImageAndTask():
 @app.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)
-
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     dated_url_for()
