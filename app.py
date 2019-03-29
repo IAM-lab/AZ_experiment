@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 
 # set db base directory
 basedir = os.path.abspath(os.path.dirname(__file__))
+n_images = 4
 
 FLASK_DEBUG = 1
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -92,21 +93,15 @@ def beginStudy():
 #
 #---------------------------------------------------------------------------------
 def populateQuestions():
-    stimuli_images = ','.join('images/graph' + str(i) + '.png' for i in range(11))
+    global n_images
+    stimuli_images = ','.join('images/graph' + str(i) + '.png' for i in range(n_images))
     stimuli_images = stimuli_images.split(',')
     session['user_data'].update({'stimuli': stimuli_images})
     session['user_data'].update({'tasks': [
-        'What was the smallest percentage change from baseline for (biomarker x)?',
         'Which group has the best survival outcome?',
-        'Which patient displayed the fastest complete response in stage x?',
         'At what time point was the most rapid change from baseline seen?',
-        'Based on the presented studies about the use of biomarker x for x. is the overall summary favoring the treatment or the control?',
-        'Does the plot suggest that a publication bias exists?',
-        'Which group has the largest range of data?',
-        'Which gene exhibits the largest number/proportion of deletions?',
         'What region(s) are biomarker x most associated with?',
-        'Which biomarker has the strongest connection to treatment/test x?',
-        'Which genes exhibit truncating mutations?'
+        'Other'
     ]})
 
 #---------------------------------------------------------------------------------

@@ -126,3 +126,20 @@ body {
 #glq-1 {
     display:block;
 }
+
+.pis-text-para {
+    font-style: italic;
+    text-align:left;
+}
+
+.pis-text-para-main{
+    text-align:left;
+}
+
+.pis-left {
+    text-align:left;
+}
+
+.uline {
+    text-decoration: underline;
+}
