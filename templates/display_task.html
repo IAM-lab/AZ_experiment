@@ -9,6 +9,11 @@
             <div class="col-sm-1 sidenav">
             </div>
             <div class="col-sm-10 text-left" style="width:100%;">
+
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 52.96%" aria-valuenow="52.96" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
                 <form action="{{ url_for('processAnswers') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
                     {% if condition == 0 %}
                     <h3>[Provenance information displayed here!]</h3>

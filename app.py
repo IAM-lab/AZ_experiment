@@ -148,6 +148,9 @@ def processAnswers():
 # ---------------------------------------------------------------------------------
 @app.route('/next_question', methods=['POST'])
 def nextQuestion():
+
+    # TODO: Add progress bar to session then update each time a new question
+
     remaining_questions = len(session['user_data']['stimuli'])
     print("remaining_questions: ", remaining_questions)
     if remaining_questions > 0:

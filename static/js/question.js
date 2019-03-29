@@ -14,10 +14,13 @@
     // member vars
     questionManager.numGraphLiteracyQuestionBlocks = 9;
     questionManager.currentGLQuestionBlock = 1;
+    questionManager.startProgress = 11.76;
+    questionManager.newProgressVal = 0;
 
     // display demographic questions
     questionManager.nextGLQuestionBlock = function()
     {
+        var progressBar = document.getElementById("gl-prog");
         var questionBlockIdString = "glq-";
         var currentBlock = "";
 
@@ -27,6 +30,9 @@
         currentBlock = questionBlockIdString + String(this.currentGLQuestionBlock);
         currentBlockElement = document.getElementById(currentBlock);
         currentBlockElement.style.display = "block";
+        this.newProgressVal += 5.88;
+        progressBar.style.width =  this.startProgress + this.newProgressVal + "%";
+        progressBar.setAttribute("aria-valuenow", this.startProgress + this.newProgressVal);
     }
 
     // hide all the GL question blocks
