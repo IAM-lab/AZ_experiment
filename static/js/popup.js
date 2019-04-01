@@ -27,7 +27,7 @@ function PopupController()
         // enable consent button when scrolled to the bottom
         jQuery(function($) {
             $('#pis-popup-text').on('scroll', function() {
-                if(Math.round($(this).scrollTop() + $(this).innerHeight()) >= $(this)[0].scrollHeight) {
+                if(Math.round($(this).scrollTop() + $(this).innerHeight()) >= $(this)[0].scrollHeight - 10) {
                     $('#consent-check').prop('disabled', false);
                     popupController.consentAgreed = true;
                     console.log("HERE!!!!");

@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 # set db base directory
 basedir = os.path.abspath(os.path.dirname(__file__))
 n_images = 4
+progress_pc = 39.27
 
 FLASK_DEBUG = 1
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -73,6 +74,8 @@ def graphLiteracyScale():
 #---------------------------------------------------------------------------------
 @app.route('/begin_study', methods=['POST'])
 def beginStudy():
+    global progress_pc
+    progress_pc += 3.57
 
     # pick a random starting position
     selected_condition = random.randint(0, 1)
@@ -83,7 +86,7 @@ def beginStudy():
     session['user_data'].update({'runs': 0 })
     populateQuestions()
 
-    return render_template('display_task.html', task_data = showNextImageAndTask(),  condition=session['user_data']['condition'])
+    return render_template('display_task.html', task_data = showNextImageAndTask(),  condition=session['user_data']['condition'], pc=progress_pc)
 
 #---------------------------------------------------------------------------------
 # FUNCTION:     populateQuestions()
@@ -136,8 +139,10 @@ def showNextImageAndTask():
 # ---------------------------------------------------------------------------------
 @app.route('/submit_answer', methods=['POST'])
 def processAnswers():
+    global progress_pc
+    progress_pc += 3.57
     # TODO: Store given answers in DB and display post answers questions
-    return render_template('post_questions.html', condition=session['user_data']['condition'])
+    return render_template('post_questions.html', condition=session['user_data']['condition'], pc=progress_pc)
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     nextQuestion
@@ -148,7 +153,8 @@ def processAnswers():
 # ---------------------------------------------------------------------------------
 @app.route('/next_question', methods=['POST'])
 def nextQuestion():
-
+    global progress_pc
+    progress_pc += 3.57
     # TODO: Add progress bar to session then update each time a new question
 
     remaining_questions = len(session['user_data']['stimuli'])
@@ -156,7 +162,7 @@ def nextQuestion():
     if remaining_questions > 0:
         task_data = showNextImageAndTask()
         session.modified = True
-        return render_template('display_task.html',  condition=session['user_data']['condition'], task_data = task_data)
+        return render_template('display_task.html',  condition=session['user_data']['condition'], task_data=task_data, pc=progress_pc)
     else:
         print("Ran out of questions")
         if session['user_data']['runs'] == 0:
@@ -168,7 +174,7 @@ def nextQuestion():
             print("Repopulated and starting next condition")
             task_data = showNextImageAndTask()
             session.modified = True
-            return render_template('display_task.html', condition=session['user_data']['condition'], task_data=task_data)
+            return render_template('display_task.html', condition=session['user_data']['condition'], task_data=task_data, pc=progress_pc)
         else:
             # TODO: Show finished experiment page
             print("End of experiement")

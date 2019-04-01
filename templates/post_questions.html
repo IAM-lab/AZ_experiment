@@ -8,6 +8,9 @@
         <div class="row content">
             <div class="col-sm-1 sidenav">
             </div>
+             <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{pc}}%" aria-valuenow="{{pc}}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
             <div class="col-sm-10 text-left" style="width:100%;">
                 <form action="{{ url_for('nextQuestion') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
 
@@ -77,7 +80,7 @@
                     <br />
                     {% endif %}
 
-                     <div class="question-section">
+                     <div class="question-section" style="background-color:#F2DEDE">
                         <span>How accurate do you think this visualisation is at representing the data well?</span>
                         <br />
                         <table class="likert-table">
@@ -96,7 +99,7 @@
                         </table>
                     </div>
                     <br />
-                    <div class="question-section">
+                    <div class="question-section" style="background-color:#F2DEDE">
                         <span>If there is any data that can be omitted from the visualisation – which data?</span>
                         <br />
                         <input type="text" id="omitted" name="omitted" />
@@ -108,7 +111,7 @@
                         <input type="text" id="missing" name="missing" />
                     </div>
                     <br />
-                    <div class="question-section">
+                    <div class="question-section" style="background-color:#F2DEDE">
                         <span>How believable do you find this information?</span>
                         <br />
                         <table class="likert-table">
@@ -190,7 +193,7 @@
                         </table>
                     </div>
                     <br />
-                    <div class="question-section">
+                    <div class="question-section" style="background-color:#F2DEDE">
                         <span>Do you think the visualization could be simplified? If so, any suggestions?</span>
                         <br />
                         <input type="text" id="simplified" name="simplified" />
