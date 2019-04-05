@@ -13,7 +13,7 @@
                 <div class="progress">
                     <div id="gl-prog" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 7.14%" aria-valuenow="7.14" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-
+                <h3>Background questions</h3>
                 <form action="{{ url_for('beginStudy') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
 
                     <div class="question-section-gl" id="glq-1">
@@ -97,7 +97,7 @@
                     <div class="question-section-gl" id="glq-5">
                         <span>In a magazine you see two advertisements, one on page 5 and another on page 12. Each is for a different drug for treating heart disease, and each includes a graph showing the effectiveness of the drug compared to a placebo (sugar pill).</span>
                         <br /><br />
-                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q10.PNG') }}" />
+                        <img class="graph-lit-img-large" src="{{ url_for('static', filename='images/q10.PNG') }}" />
                         <br /><br />
                         <div class="custom-control">
                             <label class="custom-control-label"><stong>Q10.</stong> Compared to the placebo, which treatment leads to a larger decrease in the percentage of patients who die?</label>
@@ -123,7 +123,7 @@
                     <div class="question-section-gl" id="glq-6">
                         <span>In a newspaper you see two advertisements, one on page 15 and another on page 17. Each is for a different treatment of psoriasis, and each includes a graph showing the effectiveness of the treatment over time.</span>
                         <br /><br />
-                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q11.PNG') }}" />
+                        <img class="graph-lit-img-large" src="{{ url_for('static', filename='images/q11.PNG') }}" />
                         <br /><br />
                         <div class="custom-control">
                             <label class="custom-control-label"><stong>Q11.</stong> Which of the treatments contributes to a larger decrease in the percentage of sick patients?</label>
@@ -149,7 +149,7 @@
                     <div class="question-section-gl" id="glq-7">
                         <span>Here is some information about the imaginary diseases Coliosis and Tiosis.</span>
                         <br /><br />
-                        <img class="graph-lit-img" src="{{ url_for('static', filename='images/q12.PNG') }}" />
+                        <img class="graph-lit-img-large" src="{{ url_for('static', filename='images/q12.PNG') }}" />
                         <br /><br />
                         <div class="custom-control">
                             <label class="custom-control-label"><stong>Q12.</stong> Between 1980 and 1990, which disease had a higher increase in the percentage of people affected?</label>

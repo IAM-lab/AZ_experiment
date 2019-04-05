@@ -14,6 +14,27 @@
             <div class="col-sm-10 text-left" style="width:100%;">
                 <form action="{{ url_for('nextQuestion') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
 
+                    <div class="question-section">
+                        <span>How familiar are you with this type of graph?</span>
+                        <br />
+                        <table class="likert-table">
+                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td class="likert-left"><strong>Very familiar</strong></td>
+                                    <td><input type="radio" value="1" name="complex"/></td>
+                                    <td><input type="radio" value="2" name="complex"/></td>
+                                    <td><input type="radio" value="3" name="complex"/></td>
+                                    <td><input type="radio" value="4" name="complex"/></td>
+                                    <td><input type="radio" value="5" name="complex"/></td>
+                                    <td class="likert-right"><strong>Not familiar (I have never seen it)</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+
+
                      <div class="question-section">
                         <span>How confident are you using this graph for decision making? (i.e. to show your line manager, regulatory approval, research team)</span>
                         <br />
@@ -80,58 +101,18 @@
                     <br />
                     {% endif %}
 
-                     <div class="question-section" style="background-color:#F2DEDE">
-                        <span>How accurate do you think this visualisation is at representing the data well?</span>
-                        <br />
-                        <table class="likert-table">
-                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
-                            <tbody>
-                                <tr>
-                                    <td class="likert-left"><strong>Very accurate</strong></td>
-                                    <td><input type="radio" value="1" name="accuracy"/></td>
-                                    <td><input type="radio" value="2" name="accuracy"/></td>
-                                    <td><input type="radio" value="3" name="accuracy"/></td>
-                                    <td><input type="radio" value="4" name="accuracy"/></td>
-                                    <td><input type="radio" value="5" name="accuracy"/></td>
-                                    <td class="likert-right"><strong>Very inaccurate</strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <br />
-                    <div class="question-section" style="background-color:#F2DEDE">
-                        <span>If there is any data that can be omitted from the visualisation – which data?</span>
-                        <br />
-                        <input type="text" id="omitted" name="omitted" />
-                    </div>
-                    <br />
+
+
+
                     <div class="question-section">
                         <span>Is there any data missing that you have found useful? If so what data?</span>
                         <br />
                         <input type="text" id="missing" name="missing" />
                     </div>
-                    <br />
-                    <div class="question-section" style="background-color:#F2DEDE">
-                        <span>How believable do you find this information?</span>
-                        <br />
-                        <table class="likert-table">
-                            <thead><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>&nbsp;</th></tr></thead>
-                            <tbody>
-                                <tr>
-                                    <td class="likert-left"><strong>Very believable</strong></td>
-                                    <td><input type="radio" value="1" name="belief"/></td>
-                                    <td><input type="radio" value="2" name="belief"/></td>
-                                    <td><input type="radio" value="3" name="belief"/></td>
-                                    <td><input type="radio" value="4" name="belief"/></td>
-                                    <td><input type="radio" value="5" name="belief"/></td>
-                                    <td class="likert-right"><strong>Very unbelievable</strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+
                     <br />
                     <div class="question-section">
-                        <span>Is there any information that requires clarification? If so, what data?</span>
+                        <span>Does any of the information displayed in the graph or its legend require more clarification? If so, what data is unclear to you?</span>
                         <br />
                         <input type="text" id="clarify" name="clarify" />
                     </div>
@@ -191,12 +172,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <br />
-                    <div class="question-section" style="background-color:#F2DEDE">
-                        <span>Do you think the visualization could be simplified? If so, any suggestions?</span>
-                        <br />
-                        <input type="text" id="simplified" name="simplified" />
                     </div>
                     <br />
                     <div class="question-section">

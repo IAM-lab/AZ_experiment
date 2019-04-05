@@ -57,9 +57,15 @@ body {
     font-size:20px;
 }
 
+.question-section-bg {
+    padding:10px;
+    background-color:#D9EDF7;
+    font-size:20px;
+}
+
 .question-section-gl {
     padding:10px;
-    background-color:lightgrey;
+    background-color:#D9EDF7;
     font-size:20px;
     display:none;
 }
@@ -117,6 +123,10 @@ body {
 
 .graph-lit-img {
     width:25%;
+}
+
+.graph-lit-img-large {
+    width:40%;
 }
 
 .question-img{

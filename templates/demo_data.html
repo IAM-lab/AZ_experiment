@@ -13,9 +13,9 @@
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 3.57%" aria-valuenow="3.57" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
-
+                <h3>Background questions</h3>
                 <form action="{{ url_for('graphLiteracyScale') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
-                    <div class="question-section">
+                    <div class="question-section-bg">
                         <span>What sex were you assigned at birth, on your original birth certificate?</span>
                         <br />
                         <div class="custom-control custom-radio">
@@ -42,25 +42,49 @@
                         </div>
                     </div>
                     <br />
-                    <div class="question-section">
+                    <div class="question-section-bg">
                         <span>What year were you born in? (optional)</span>
                         <br />
                         <input type="text" id="datepicker" name="year-of-birth" />
                     </div>
                     <br />
-                    <div class="question-section">
+                    <div class="question-section-bg">
                         <span>What is your professional role?</span>
                         <br />
                         <input type="text" id="role" name="role" />
                     </div>
                     <br />
-                    <div class="question-section">
-                        <span>Years of experience?</span>
+                    <div class="question-section-bg">
+                        <span>Years of experience working with biomarker data?</span>
                         <br />
                         <input type="number" id="years-exp" name="years-exp" />
                     </div>
                     <br />
-                    <div class="question-section">
+
+                    <div class="question-section-bg">
+                        <span>Oncology experience(check one)</span>
+                        <br />
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="onc-ex-a" name="onc-exp">
+                            <label class="custom-control-label" for="onc-ex-a">Yes, I have experience in oncology only</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="onc-ex-b" name="onc-exp">
+                            <label class="custom-control-label" for="onc-ex-b">Yes, most of my experience is in oncology but I also have experience in non-oncology (i.e. other therapeutic areas)</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="onc-ex-c" name="onc-exp">
+                            <label class="custom-control-label" for="onc-ex-c">Yes, but most of my experience is in non-oncology</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="onc-ex-d" name="onc-exp">
+                            <label class="custom-control-label" for="onc-ex-d">No, I have experience in evaluating biomarkers in other therapeutic areas only</label>
+                            <br />
+                            <input type="radio" class="custom-control-input" id="onc-ex-e" name="onc-exp">
+                            <label class="custom-control-label" for="onc-ex-e">I do not have experience with biomarker analysis</label>
+                            <br />
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="question-section-bg">
                         <span>How familiar are you with biomarker data?</span>
                         <br />
                         <table class="likert-table">
@@ -79,7 +103,7 @@
                         </table>
                     </div>
                     <br />
-                    <div class="question-section">
+                    <div class="question-section-bg">
                         <span>How often do you use visualisation in your role?</span>
                         <br />
                         <table class="likert-table">
