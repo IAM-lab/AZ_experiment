@@ -16,29 +16,13 @@
                 <h3>Background questions</h3>
                 <form action="{{ url_for('graphLiteracyScale') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
                     <div class="question-section-bg">
-                        <span>What sex were you assigned at birth, on your original birth certificate?</span>
+                        <span>How do you describe yourself? (check one)</span>
                         <br />
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" id="birth-sex-male" name="birth-sex">
                             <label class="custom-control-label" for="birth-sex-male">Male</label>
                             <input type="radio" class="custom-control-input" id="birth-sex-female" name="birth-sex">
                             <label class="custom-control-label" for="birth-sex-female">Female</label>
-                        </div>
-                        <br />
-                        <span>How do you describe yourself? (check one)</span>
-                        <br />
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="current-sex-male" name="current-sex">
-                            <label class="custom-control-label" for="current-sex-male">Male</label>
-                            <br />
-                            <input type="radio" class="custom-control-input" id="current-sex-female" name="current-sex">
-                            <label class="custom-control-label" for="current-sex-female">Female</label>
-                            <br />
-                            <input type="radio" class="custom-control-input" id="current-sex-trans" name="current-sex">
-                            <label class="custom-control-label" for="current-sex-trans">Transgender</label>
-                            <br />
-                            <input type="radio" class="custom-control-input" id="current-sex-none" name="current-sex">
-                            <label class="custom-control-label" for="current-sex-none">Do not identify as female, male or transgender</label>
                         </div>
                     </div>
                     <br />
@@ -62,7 +46,7 @@
                     <br />
 
                     <div class="question-section-bg">
-                        <span>Oncology experience(check one)</span>
+                        <span>Oncology experience (check one)</span>
                         <br />
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" id="onc-ex-a" name="onc-exp">

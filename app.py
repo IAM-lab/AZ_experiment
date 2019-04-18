@@ -83,10 +83,13 @@ def beginStudy():
     # setup experimental conditions and load task images & questions
     session['user_data'] = dict()
     session['user_data'].update({ 'condition': selected_condition })
-    session['user_data'].update({'runs': 0 })
+    session['user_data'].update({ 'task_data': None })
+    session['user_data'].update({ 'runs': 0 })
     populateQuestions()
 
-    return render_template('display_task.html', task_data = showNextImageAndTask(),  condition=session['user_data']['condition'], pc=progress_pc)
+    session['user_data']['task_data'] = showNextImageAndTask()
+    session.modified = True
+    return render_template('display_task.html', task_data = session['user_data']['task_data'],  condition=session['user_data']['condition'], pc=progress_pc)
 
 #---------------------------------------------------------------------------------
 # FUNCTION:     populateQuestions()
@@ -117,15 +120,10 @@ def populateQuestions():
 def showNextImageAndTask():
     remaining_images = len(session['user_data']['stimuli'])
     rnd_num = random.randint(0, remaining_images - 1)
-    print("In showNextImageAndTask, remaining = ", remaining_images)
     if remaining_images > 0:
-        print("popin")
-
         stimuli = session['user_data']['stimuli'].pop(rnd_num)
         task = session['user_data']['tasks'].pop(rnd_num)
         session.modified = True
-        print("stimuli = ", stimuli, " Task = ", task)
-
         return stimuli, task
     else:
         return None
@@ -141,8 +139,9 @@ def showNextImageAndTask():
 def processAnswers():
     global progress_pc
     progress_pc += 3.57
+
     # TODO: Store given answers in DB and display post answers questions
-    return render_template('post_questions.html', condition=session['user_data']['condition'], pc=progress_pc)
+    return render_template('post_questions.html', condition=session['user_data']['condition'], task_data=session['user_data']['task_data'], pc=progress_pc)
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     nextQuestion
@@ -158,28 +157,37 @@ def nextQuestion():
     # TODO: Add progress bar to session then update each time a new question
 
     remaining_questions = len(session['user_data']['stimuli'])
-    print("remaining_questions: ", remaining_questions)
     if remaining_questions > 0:
-        task_data = showNextImageAndTask()
+        session['user_data']['task_data'] = showNextImageAndTask()
         session.modified = True
-        return render_template('display_task.html',  condition=session['user_data']['condition'], task_data=task_data, pc=progress_pc)
+        return render_template('display_task.html',  condition=session['user_data']['condition'], task_data=session['user_data']['task_data'], pc=progress_pc)
     else:
-        print("Ran out of questions")
+        # if we run out of questions
         if session['user_data']['runs'] == 0:
             populateQuestions()
             session['user_data']['runs'] += 1
             session['user_data']['condition'] ^= 1
             session.modified = True
             # TODO: Page explaining will see send [condition] with/without
-            print("Repopulated and starting next condition")
-            task_data = showNextImageAndTask()
+
+            #task_data = showNextImageAndTask()
+            session['user_data']['task_data'] = showNextImageAndTask()
             session.modified = True
-            return render_template('display_task.html', condition=session['user_data']['condition'], task_data=task_data, pc=progress_pc)
+            return render_template('display_task.html', condition=session['user_data']['condition'], task_data=session['user_data']["task_data"], pc=progress_pc)
         else:
             # TODO: Show finished experiment page
-            print("End of experiement")
-            return render_template('final_questions.html')
+            return render_template('final_feedback.html')
 
+# ---------------------------------------------------------------------------------
+# FUNCTION:     finalComments
+# INPUT:        void
+# OUTPUT:       template
+# DESCRIPTION:  Show the final page
+#
+# ---------------------------------------------------------------------------------
+@app.route('/last_page', methods=['POST'])
+def finalComments():
+    return render_template('final_questions.html')
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     override_url_for()

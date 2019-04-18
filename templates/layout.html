@@ -34,12 +34,11 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
-
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
 
         <!-- js files -->
+        <script src="{{ url_for('static', filename='js/dragcontent.js') }}"></script>
         <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
         <script src="{{ url_for('static', filename='js/question.js') }}"></script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
@@ -59,7 +58,7 @@
         </script>
 
     </head>
-    <body>
+    <body onresize="popupController.resizePopup();" onscroll="popupController.repositionDragContainer(document.getElementById('popup-vis-image'));">
 
         <!-- navigation bar -->
         <nav id="main-nav-bar" class="navbar navbar-inverse">

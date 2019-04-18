@@ -36,12 +36,24 @@ function PopupController()
         });
     }
 
+    // resize to contents on size change
+    popupController.resizePopup = function()
+    {
+        if(this.PISPopup.style.display == "block")
+        {
+            this.resizeAndPositionPopup();
+            var okButton = document.getElementById("pis-popup-ok");
+            this.PISPopup.style.height = (this.PISPopup.offsetTop + okButton.offsetTop + okButton.offsetHeight + 2) + "px";
+        }
+    }
+
     // show popup
     popupController.showPopup = function()
     {
         this.pageMask.style.display = "block";
         this.PISPopup.style.display = "block";
-        this.resizeAndPositionPopup();
+        //this.resizeAndPositionPopup();
+        this.resizePopup();
     }
 
     // hide popup
@@ -65,6 +77,14 @@ function PopupController()
         this.hidePopup();
         $('#begin-study').prop('disabled', false);
         $('#begin-study').addClass('btn btn-dark pulse-button');
+    }
+
+    // reposition drag container to top of screen
+    popupController.repositionDragContainer = function(dragContainer)
+    {
+        if(dragContainer) {
+            dragContainer.style.top = $(window).scrollTop() + "px";
+        }
     }
 
     return popupController;

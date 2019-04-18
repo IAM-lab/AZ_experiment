@@ -9,6 +9,7 @@
 // system objects
 var popupController = null;
 var questionManager = null;
+var dragContent = null;
 
 // initialisation function
 function initializeMain()
@@ -16,4 +17,5 @@ function initializeMain()
     // create objects
     popupController = PopupController();
     questionManager = QuestionManager();
+    dragContent = DragContent();
 }

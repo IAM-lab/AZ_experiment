@@ -13,7 +13,6 @@
                 </div>
             <div class="col-sm-10 text-left" style="width:100%;">
                 <form action="{{ url_for('nextQuestion') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
-
                     <div class="question-section">
                         <span>How familiar are you with this type of graph?</span>
                         <br />
@@ -33,7 +32,6 @@
                         </table>
                     </div>
                     <br />
-
 
                      <div class="question-section">
                         <span>How confident are you using this graph for decision making? (i.e. to show your line manager, regulatory approval, research team)</span>
@@ -57,7 +55,7 @@
                     <div class="question-section">
                         <span>Please give a brief reason for your answer</span>
                         <br />
-                        <input type="text" id="reason" name="reason" />
+                        <textarea rows="4" cols="100" id="reason" name="reason"></textarea>
                     </div>
                     <br />
                     {% if condition == 0 %}
@@ -101,20 +99,17 @@
                     <br />
                     {% endif %}
 
-
-
-
                     <div class="question-section">
                         <span>Is there any data missing that you have found useful? If so what data?</span>
                         <br />
-                        <input type="text" id="missing" name="missing" />
+                        <textarea rows="4" cols="100" id="missing" name="missing"></textarea>
                     </div>
 
                     <br />
                     <div class="question-section">
                         <span>Does any of the information displayed in the graph or its legend require more clarification? If so, what data is unclear to you?</span>
                         <br />
-                        <input type="text" id="clarify" name="clarify" />
+                        <textarea rows="4" cols="100" id="clarify" name="clarify"></textarea>
                     </div>
                     <br />
                     <div class="question-section">
@@ -177,7 +172,7 @@
                     <div class="question-section">
                         <span>Do you want to leave any additional feedback?</span>
                         <br />
-                        <input type="text" id="feedback" name="feedback" />
+                        <textarea rows="4" cols="100" id="feedback" name="feedback"></textarea>
                     </div>
                     <br />
                     <button type="submit" class="btn btn-success next-button">Next</button>
@@ -187,17 +182,22 @@
             <div class="col-sm-1 sidenav">
             </div>
         </div>
+
+        <div id="popup-vis-image">
+            <span>Click and hold to drag.</span>
+            <div id="mini-viz-image">
+                <img class="mini-img" src="{{ url_for('static', filename=task_data[0]) }}" />
+            </div>
+        </div>
+
 </div>
 
 <!-- page script -->
 <script type=text/javascript>
-
-    $("#datepicker").datepicker( {
-        format: " yyyy", // Notice the Extra space at the beginning
-        viewMode: "years",
-        minViewMode: "years"
+    $(document).ready(function () {
+        console.log(dragContent);
+        dragContent.dragElement(document.getElementById("popup-vis-image"));
     });
-
 </script>
 
 {% endblock %}
