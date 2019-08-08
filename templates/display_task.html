@@ -15,10 +15,7 @@
                 </div>
 
                 <form action="{{ url_for('processAnswers') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
-                    {% if condition == 0 %}
-                    <h3>[Provenance information displayed here!]</h3>
-                    <br />
-                    {% endif %}
+                    <!-- if images/graph -->
                     <img class="question-img" src="{{ url_for('static', filename=task_data[0]) }}" />
                     <br /><br />
                     <div class="question-generic">
@@ -31,18 +28,198 @@
                         <button type="submit" class="btn btn-success next-button">Submit answer</button>
                     </div>
                 <br />
-
+question = {{ question }}, Condition = {{ condition }}
 
 
                 </form>
             </div>
             <div class="col-sm-1 sidenav">
             </div>
+
+
+            <div id="popup-prov-metadata">
+               <p>
+                {% for i, j in prov_meta %}
+                    <br /><strong>{{ i }}</strong><br /> {{ j }} <br />
+                {% endfor %}
+                <br />
+               </p>
+            </div>
+
+            {% if condition != 0 %}
+            <div id="popup-prov-data">
+                <br />
+                <br />
+                <p>
+                    Filter
+                    <!-- negative provenance KMC -->
+                    {% if question == 0 and condition == 1 %}
+                        <table class="provtab">
+                            <tr><td>-By country</td></tr>
+                            <tr><td> --Germany</td><td>[X]</td></tr>
+                            <tr><td> --UK</td><td>[X]</td></tr>
+                            <tr><td> --Norway</td><td>[X]</td></tr>
+                            <tr><td> --Italy</td><td>[.]</td></tr>
+                            <tr><td>-By clinical stage</td></tr>
+                            <tr><td> -- IIA</td><td>[.]</td></tr>
+                            <tr><td> -- IIB</td><td>[X]</td></tr>
+                            <tr><td> -- IIIA</td><td>[X]</td></tr>
+                            <tr><td> -- IIIB</td><td>[X]</td></tr>
+                            <tr><td> -- All</td><td>[.]</td></tr>
+                            <tr><td>By Age</td><td>[>50]</td></tr>
+                        </table>
+                    {% endif %}
+                    <!-- neutral provenance KMC -->
+                    {% if question == 0 and condition == 2 %}
+                        <table class="provtab">
+                            <tr><td>-By country</td></tr>
+                            <tr><td> --Germany</td><td>[X]</td></tr>
+                            <tr><td> --UK</td><td>[X]</td></tr>
+                            <tr><td> --Norway</td><td>[X]</td></tr>
+                            <tr><td> --Italy</td><td>[.]</td></tr>
+                            <tr><td>-By clinical stage</td></tr>
+                            <tr><td> -- IIA</td><td>[X]</td></tr>
+                            <tr><td> -- IIB</td><td>[X]</td></tr>
+                            <tr><td> -- IIIA</td><td>[X]</td></tr>
+                            <tr><td> -- IIIB</td><td>[X]</td></tr>
+                            <tr><td> -- All</td><td>[X]</td></tr>
+                            <tr><td>-By Age</td><td>[<65]</td></tr>
+                        </table>
+                    {% endif %}
+                     <!-- negative provenance forest plot -->
+                    {% if question == 1 and condition == 1 %}
+                        <table class="provtab">
+                            <tr><td>-By study eligibility</td></tr>
+                            <tr><td> --Eligible</td><td>[X]</td></tr>
+                            <tr><td> --Ineligible</td><td>[.]</td></tr>
+                            <tr><td> --All</td><td>[.]</td></tr>
+                            <tr><td>-By cancer type</td></tr>
+                            <tr><td> -- Locally Advanced</td><td>[X]</td></tr>
+                            <tr><td> -- Metastatic</td><td>[X]</td></tr>
+                            <tr><td> -- Other</td><td>[.]</td></tr>
+                            <tr><td> -- All</td><td>[.]</td></tr>
+                            <tr><td>-By year of data collection</td></tr>
+                            <tr><td> -- 2006-2008</td><td>[X]</td></tr>
+                            <tr><td> -- 2006-2009</td><td>[X]</td></tr>
+                            <tr><td> -- 2006-2010</td><td>[X]</td></tr>
+                            <tr><td> -- 2009-2011</td><td>[X]</td></tr>
+                            <tr><td> -- 2010-2013</td><td>[X]</td></tr>
+                            <tr><td> -- 2011-2014</td><td>[X]</td></tr>
+                        </table>
+                        Sort
+                        <table class="provtab">
+                            <tr><td>-By year of data collection</td></tr>
+                            <tr><td>-- Ascending</td><td>[X]</td></tr>
+                            <tr><td>-- Descending</td><td>[.]</td></tr>
+                        </table>
+                    {% endif %}
+                    <!-- neutral provenance forest plot -->
+                    {% if question == 1 and condition == 2 %}
+                        <table class="provtab">
+                            <tr><td>-By study eligibility</td></tr>
+                            <tr><td> --Eligible</td><td>[X]</td></tr>
+                            <tr><td> --Ineligible</td><td>[.]</td></tr>
+                            <tr><td> --All</td><td>[.]</td></tr>
+                            <tr><td>-By cancer type</td></tr>
+                            <tr><td> -- Locally Advanced</td><td>[X]</td></tr>
+                            <tr><td> -- Metastatic</td><td>[X]</td></tr>
+                            <tr><td> -- Other</td><td>[.]</td></tr>
+                            <tr><td> -- All</td><td>[.]</td></tr>
+                            <tr><td>-By year of data collection</td></tr>
+                            <tr><td> -- 2006-2008</td><td>[X]</td></tr>
+                            <tr><td> -- 2006-2009</td><td>[X]</td></tr>
+                            <tr><td> -- 2006-2010</td><td>[X]</td></tr>
+                            <tr><td> -- 2009-2011</td><td>[X]</td></tr>
+                            <tr><td> -- 2010-2013</td><td>[X]</td></tr>
+                            <tr><td> -- 2011-2014</td><td>[X]</td></tr>
+                        </table>
+                    {% endif %}
+                    <!-- negative provenance network plot -->
+                    {% if question == 2 and condition == 1 %}
+                        <table class="provtab">
+                            <tr><td>-By sample type</td></tr>
+                            <tr><td> --Blood</td><td>[X]</td></tr>
+                            <tr><td> --Urine</td><td>[.]</td></tr>
+                            <tr><td>-By country</td></tr>
+                            <tr><td> --France</td><td>[X]</td></tr>
+                            <tr><td> --USA</td><td>[X]</td></tr>
+                            <tr><td> --Sweden</td><td>[X]</td></tr>
+                            <tr><td>-By disease subtype</td></tr>
+                            <tr><td> -- Subtype 1 (n=100)</td><td>[X]</td></tr>
+                            <tr><td> -- Subtype 2 (n= 90)</td><td>[X]</td></tr>
+                            <tr><td> -- Subtype 3 (n=110)</td><td>[X]</td></tr>
+                            <tr><td> -- Subtype 4 (n=  4)</td><td>[.]</td></tr>
+                            <tr><td> -- All known (n=304)</td><td>[.]</td></tr>
+                        </table>
+                    {% endif %}
+                    <!-- neutral provenance network plot -->
+                    {% if question == 2 and condition == 2 %}
+                        <table class="provtab">
+                            <tr><td>-By sample type</td></tr>
+                            <tr><td> --Blood</td><td>[X]</td></tr>
+                            <tr><td> --Urine</td><td>[.]</td></tr>
+                            <tr><td>-By country</td></tr>
+                            <tr><td> --France</td><td>[X]</td></tr>
+                            <tr><td> --USA</td><td>[X]</td></tr>
+                            <tr><td> --Sweden</td><td>[X]</td></tr>
+                            <tr><td>-By disease subtype</td></tr>
+                            <tr><td> -- Subtype 1 (n=100)</td><td>[X]</td></tr>
+                            <tr><td> -- Subtype 2 (n= 90)</td><td>[X]</td></tr>
+                            <tr><td> -- Subtype 3 (n=110)</td><td>[X]</td></tr>
+                            <tr><td> -- All known (n=300)</td><td>[X]</td></tr>
+                        </table>
+                    {% endif %}
+                    <!-- negative provenance forest plot -->
+                    {% if question == 3 and condition == 1 %}
+                        <table class="provtab">
+                            <tr><td>-By year of publication</td></tr>
+                            <tr><td> -- 2013</td><td>[.]</td></tr>
+                            <tr><td> -- 2015</td><td>[.]</td></tr>
+                            <tr><td> -- 2017</td><td>[.]</td></tr>
+                            <tr><td> -- 2018</td><td>[X]</td></tr>
+                            <tr><td>-By country</td></tr>
+                            <tr><td> --Germany</td><td>[X]</td></tr>
+                            <tr><td> --USA</td><td>[X]</td></tr>
+                            <tr><td> --Denmark</td><td>[X]</td></tr>
+                            <tr><td> --Spain</td><td>[.]</td></tr>
+                            <tr><td> --Italy</td><td>[.]</td></tr>
+                            <tr><td>-By Age</td><td>[<65]</td></tr>
+                            <tr><td>-By variants</td></tr>
+                            <tr><td> -- Hide variants of unknown significance</td><td>[X]</td></tr>
+                        </table>
+                    {% endif %}
+                    <!-- neutral provenance forest plot -->
+                    {% if question == 3 and condition == 2 %}
+                        <table class="provtab">
+                            <tr><td>-By year of publication</td></tr>
+                            <tr><td> -- 2013</td><td>[.]</td></tr>
+                            <tr><td> -- 2015</td><td>[.]</td></tr>
+                            <tr><td> -- 2017</td><td>[.]</td></tr>
+                            <tr><td> -- 2018</td><td>[X]</td></tr>
+                            <tr><td>-By country</td></tr>
+                            <tr><td> --Germany</td><td>[X]</td></tr>
+                            <tr><td> --USA</td><td>[X]</td></tr>
+                            <tr><td> --Denmark</td><td>[X]</td></tr>
+                            <tr><td> --Spain</td><td>[.]</td></tr>
+                            <tr><td> --Italy</td><td>[.]</td></tr>
+                            <tr><td>-By Age</td><td>[<65]</td></tr>
+                            <tr><td>-By variants</td></tr>
+                            <tr><td> -- Hide variants of unknown significance</td><td>[.]</td></tr>
+                        </table>
+                    {% endif %}
+                    <br />
+                    <strong>Key:</strong> <span class="provtab">[X]</span> = selected, <span class="provtab">[.]</span> = not selected
+                </p>
+            </div>
+            {% endif %}
         </div>
 </div>
 
 <!-- page script -->
 <script type=text/javascript>
+    $(document).ready(function () {
+        popupController.positionProvenanceDataPopup();
+    });
 </script>
 
 {% endblock %}

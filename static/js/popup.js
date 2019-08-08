@@ -39,11 +39,13 @@ function PopupController()
     // resize to contents on size change
     popupController.resizePopup = function()
     {
-        if(this.PISPopup.style.display == "block")
-        {
-            this.resizeAndPositionPopup();
-            var okButton = document.getElementById("pis-popup-ok");
-            this.PISPopup.style.height = (this.PISPopup.offsetTop + okButton.offsetTop + okButton.offsetHeight + 2) + "px";
+        if(document.getElementById("PIS-popup")) {
+            if(this.PISPopup.style.display == "block")
+            {
+                this.resizeAndPositionPopup();
+                var okButton = document.getElementById("pis-popup-ok");
+                this.PISPopup.style.height = (this.PISPopup.offsetTop + okButton.offsetTop + okButton.offsetHeight + 2) + "px";
+            }
         }
     }
 
@@ -84,6 +86,16 @@ function PopupController()
     {
         if(dragContainer) {
             dragContainer.style.top = $(window).scrollTop() + "px";
+        }
+    }
+
+    // position the provenance data popup to the left of the meta data
+    popupController.positionProvenanceDataPopup = function()
+    {
+        if(document.getElementById('popup-prov-data')) {
+            metaDataPopup = document.getElementById('popup-prov-metadata');
+            provPopup = document.getElementById('popup-prov-data');
+            provPopup.style.left = metaDataPopup.offsetLeft - provPopup.offsetWidth - 20 + "px";
         }
     }
 

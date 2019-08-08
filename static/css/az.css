@@ -133,6 +133,11 @@ body {
     width:40%;
 }
 
+.question-img-large{
+    width:55%;
+}
+
+
 #glq-1 {
     display:block;
 }
@@ -164,6 +169,34 @@ body {
     background-color:#D9EDF7;
 }
 
+#popup-prov-metadata{
+    position:absolute;
+    right:2%;
+    top:3%;
+    width:20%;
+    text-align:left;
+    padding:10px;
+    /*height:25%;*/
+    border:1px solid black;
+    background-color:#D9EDF7;
+}
+
+#popup-prov-data{
+    position:absolute;
+    right:2%;
+    top:3%;
+    width:15%;
+    text-align:left;
+    padding:10px;
+    /*height:25%;*/
+    border:1px solid black;
+    background-color:#FCF8E3;
+}
+
+.provtab {
+    font-family:Courier;
+}
+
 #mini-viz-image{
     width:100%;
     height:100%;
@@ -171,4 +204,8 @@ body {
 
 .mini-img{
     width:100%;
+}
+
+.prov-top-item {
+    font-weight: bold;
 }

@@ -1,15 +1,16 @@
 """
 NAME:          app.py
-AUTHOR:        Alan Davies
+AUTHOR:        Dr. Alan Davies (Lecturer Health Data Science)
 DATE:          05/02/2019
 INSTITUTION:   Interaction Analysis and Modelling Lab (IAM), University of Manchester
 DESCRIPTION:   Flask main page.
                http://127.0.0.1:5000/
 """
-import os, sys, random
+import os, sys, random, re
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
+from django.utils.safestring import mark_safe
 
 # set db base directory
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -52,7 +53,7 @@ def home():
 #---------------------------------------------------------------------------------
 @app.route('/demographic_data', methods=['POST'])
 def getDemographicData():
-    return render_template('demo_data.html')
+    return render_template('demo_data.html', pc=updateProgress())
 
 #---------------------------------------------------------------------------------
 # FUNCTION:     graphLiteracyScale()
@@ -74,29 +75,66 @@ def graphLiteracyScale():
 #---------------------------------------------------------------------------------
 @app.route('/begin_study', methods=['POST'])
 def beginStudy():
-    global progress_pc
-    progress_pc += 3.57
 
-    # pick a random starting position
-    selected_condition = random.randint(0, 1)
+    # pick a random condition 0 (no prov), 1 (negative prov) or 2 (neutral prov)
+    selected_condition = random.randint(0, 2)
 
     # setup experimental conditions and load task images & questions
     session['user_data'] = dict()
-    session['user_data'].update({ 'condition': selected_condition })
-    session['user_data'].update({ 'task_data': None })
-    session['user_data'].update({ 'runs': 0 })
-    populateQuestions()
+    session['progress_bar'] = dict()
 
-    session['user_data']['task_data'] = showNextImageAndTask()
+    session['user_data'].update({'condition': selected_condition })
+    session['user_data'].update({'task_data': None })
+    session['user_data'].update({'runs': 0 })
+    session['progress_bar'].update({'prog':[0, 0.2]})
     session.modified = True
-    return render_template('display_task.html', task_data = session['user_data']['task_data'],  condition=session['user_data']['condition'], pc=progress_pc)
+    populateQuestions()
+    return nextQuestion()
+    #session['user_data']['task_data'] = showNextImageAndTask()
 
+
+# ---------------------------------------------------------------------------------
+# FUNCTION:     nextQuestion
+# INPUT:        void
+# OUTPUT:       template
+# DESCRIPTION:  Main experimental loop. Keeps shoing new questions until we
+#               run out then changes condition. If both conditions done show end page
+# ---------------------------------------------------------------------------------
+@app.route('/next_question', methods=['POST'])
+def nextQuestion():
+    remaining_questions = len(session['user_data']['stimuli'])
+    if remaining_questions > 0:
+        session['user_data']['task_data'] = showNextImageAndTask()
+        question_id = str(session['user_data']['task_data'][0])
+        current_question = re.findall(r'\d+', question_id)
+        current_question = int(current_question[0])
+        condition = int(session['user_data']['condition'])
+        session.modified = True
+
+        return render_template('display_task.html', condition=condition,
+                               task_data=session['user_data']['task_data'],
+                               prov_meta=zip(session['user_data']['meta_data_titles'][current_question], session['user_data']['meta_data'][current_question]),
+                               question=current_question, pc=0) # updateProgress())
+    else:
+        return render_template('final_feedback.html')
+
+#---------------------------------------------------------------------------------
+# FUNCTION:     updateProgress()
+# INPUT:        void
+# OUTPUT:       float
+# DESCRIPTION:  Return updated progress value
+#
+#---------------------------------------------------------------------------------
+def updateProgress():
+    print(session['progress_bar'], file=sys.stderr)
+    print(session['progress_bar'][0], file=sys.stderr)
+    return 0
 #---------------------------------------------------------------------------------
 # FUNCTION:     populateQuestions()
 # INPUT:        void
 # OUTPUT:       void
-# DESCRIPTION:  Add the images and task questions to session data
-#
+# DESCRIPTION:  Add the images and task questions to session data along
+#               with provenance meta and filters
 #---------------------------------------------------------------------------------
 def populateQuestions():
     global n_images
@@ -104,11 +142,23 @@ def populateQuestions():
     stimuli_images = stimuli_images.split(',')
     session['user_data'].update({'stimuli': stimuli_images})
     session['user_data'].update({'tasks': [
-        'Which group has the best survival outcome?',
-        'At what time point was the most rapid change from baseline seen?',
-        'What region(s) are biomarker x most associated with?',
-        'Other'
-    ]})
+        'Is the biomarker associated with survival in this patient population?',
+        mark_safe('Is there enough evidence to state that there are differences in the effect of drug A<br /> on overall survival (OS) according to the biomarker status for metastatic cancer "K"?'),
+        mark_safe('A child has been diagnosed with disease "A", but the disease subtype is unknown.<br />Which two biomarkers would you chose to make the differential diagnosis?'),
+        mark_safe('How many patients in the queried sample (n=80)<br /> have genetic alterations co-occurring in 2 or more of the selected genes?')]})
+
+    # main meta data titles
+    session['user_data'].update({'meta_data_titles': [['Patient population:','Data collection period:','Countries:','Median follow-up time (method):','Number of events n(%):','Censored observations n(%):','Median survival time (months):'],
+                                                      ['Patient population:','Biomarker type:','Sample characteristics:','Year of publication:','Countries:','Plot Footer:'],
+                                                      ['Follow-up period:','Enrolment period:','Number of Patients:','Sample characteristics:','Biomarker type:','Year of publication of results:','Countries:','Patient population:'],
+                                                      ['Patient population:','Number of Patients:','Number of Samples:','Sample characteristics:','DNA-matched normal controls available?','Year of publication of results:','Countries:','Note:']]})
+    # meta data
+    session['user_data'].update({'meta_data': [['Retrospective study on patients diagnosed with clinical stage II/III  cancer "J", aged 18-65.','1996-2004','Germany, UK, Norway','15.1 (all patients)',mark_safe('Biomarker+ 44(55)<br />Biomarker- 54(68)'),mark_safe('Biomarker+ 36(45)<br />Biomarker- 26(33)'),mark_safe('Biomarker+ 24.4<br />Biomarker- 18.1')],
+                                               ['Metastatic or locally advanced cancer "K", age 18-65 (all studies)','genetic alteration','Formalin-fixed paraffin-embedded (FFPE) primary tumour tissue (all studies)','2015',mark_safe('UK (S1,S4)<br />USA (S2,S3,S5)<br />Norway (S6)'),'Test for interaction between biomarker status and treatment (full dataset): p-value=0.44'],
+                                               ['~1 year','2012-2016','300','Blood sample','Protein','2018','France, USA, Sweeden','A prospective cohort study in patients diagnosed with cardiovascular disease "A", aged 20-70.'],
+                                               ['Patients diagnosed with cancer "D", aged 20-65.','80','80','Primary tumour samples derived from fresh frozen tissue','Yes','2018','Germany, USA, Denmark','Queried genes are altered in 42 (53%) of queried patients (80) in total']]})
+
+    session.modified = True
 
 #---------------------------------------------------------------------------------
 # FUNCTION:     showNextImageAndTask()
@@ -142,41 +192,6 @@ def processAnswers():
 
     # TODO: Store given answers in DB and display post answers questions
     return render_template('post_questions.html', condition=session['user_data']['condition'], task_data=session['user_data']['task_data'], pc=progress_pc)
-
-# ---------------------------------------------------------------------------------
-# FUNCTION:     nextQuestion
-# INPUT:        void
-# OUTPUT:       template
-# DESCRIPTION:  Main experimental loop. Keeps shoing new questions until we
-#               run out then changes condition. If both conditions done show end page
-# ---------------------------------------------------------------------------------
-@app.route('/next_question', methods=['POST'])
-def nextQuestion():
-    global progress_pc
-    progress_pc += 3.57
-    # TODO: Add progress bar to session then update each time a new question
-
-    remaining_questions = len(session['user_data']['stimuli'])
-    if remaining_questions > 0:
-        session['user_data']['task_data'] = showNextImageAndTask()
-        session.modified = True
-        return render_template('display_task.html',  condition=session['user_data']['condition'], task_data=session['user_data']['task_data'], pc=progress_pc)
-    else:
-        # if we run out of questions
-        if session['user_data']['runs'] == 0:
-            populateQuestions()
-            session['user_data']['runs'] += 1
-            session['user_data']['condition'] ^= 1
-            session.modified = True
-            # TODO: Page explaining will see send [condition] with/without
-
-            #task_data = showNextImageAndTask()
-            session['user_data']['task_data'] = showNextImageAndTask()
-            session.modified = True
-            return render_template('display_task.html', condition=session['user_data']['condition'], task_data=session['user_data']["task_data"], pc=progress_pc)
-        else:
-            # TODO: Show finished experiment page
-            return render_template('final_feedback.html')
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     finalComments

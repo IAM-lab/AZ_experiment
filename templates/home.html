@@ -33,7 +33,10 @@
                         If you wish to take part in the study you must first read the participant information sheet and provide consent. We will then ask you a few background questions,
                         which include some general questions about reading information from graphs and then the experiment will start.
                     </p>
-                    <p><b>Please do not use the back button during this study.</b><br /> Thank you for your time.</p>
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-warning-sign"></span> Please do not use the back or refresh buttons during this study.
+                    </div>
+                    <p>Thank you for your time.</p>
                     <button type="button" class="btn btn-dark" onclick="popupController.showPopup();">Read participant information</button>
                     <br /><br />
                     <form action="{{ url_for('getDemographicData') }}" method="POST">
