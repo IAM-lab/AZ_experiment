@@ -1,6 +1,7 @@
 """
 NAME:          app.py
 AUTHOR:        Dr. Alan Davies (Lecturer Health Data Science)
+PROFILE:       https://www.research.manchester.ac.uk/portal/alan.davies-2.html
 DATE:          05/02/2019
 INSTITUTION:   Interaction Analysis and Modelling Lab (IAM), University of Manchester
 DESCRIPTION:   Flask main page.
@@ -42,6 +43,7 @@ app = Flask(__name__)
 #---------------------------------------------------------------------------------
 @app.route('/')
 def home():
+    initStudy()
     return render_template('home.html')
 
 #---------------------------------------------------------------------------------
@@ -53,7 +55,7 @@ def home():
 #---------------------------------------------------------------------------------
 @app.route('/demographic_data', methods=['POST'])
 def getDemographicData():
-    return render_template('demo_data.html', pc=updateProgress())
+    return render_template('demo_data.html')
 
 #---------------------------------------------------------------------------------
 # FUNCTION:     graphLiteracyScale()
@@ -67,6 +69,24 @@ def graphLiteracyScale():
     return render_template('graph_lit.html')
 
 #---------------------------------------------------------------------------------
+# FUNCTION:     initStudy()
+# INPUT:        void
+# OUTPUT:       void
+# DESCRIPTION:  Setup the session data strurcures for the app.
+#
+#---------------------------------------------------------------------------------
+def initStudy():
+    # pick a random condition 0 (no prov), 1 (negative prov) or 2 (neutral prov)
+    selected_condition = random.randint(0, 2)
+
+    # setup experimental conditions and load task images & questions
+    session['user_data'] = dict()
+    session['user_data'].update({'condition': selected_condition})
+    session['user_data'].update({'task_data': None})
+    session['user_data'].update({'prog': [50, 5]})
+    session.modified = True
+
+#---------------------------------------------------------------------------------
 # FUNCTION:     beginStudy()
 # INPUT:        void
 # OUTPUT:       template
@@ -75,23 +95,8 @@ def graphLiteracyScale():
 #---------------------------------------------------------------------------------
 @app.route('/begin_study', methods=['POST'])
 def beginStudy():
-
-    # pick a random condition 0 (no prov), 1 (negative prov) or 2 (neutral prov)
-    selected_condition = random.randint(0, 2)
-
-    # setup experimental conditions and load task images & questions
-    session['user_data'] = dict()
-    session['progress_bar'] = dict()
-
-    session['user_data'].update({'condition': selected_condition })
-    session['user_data'].update({'task_data': None })
-    session['user_data'].update({'runs': 0 })
-    session['progress_bar'].update({'prog':[0, 0.2]})
-    session.modified = True
     populateQuestions()
     return nextQuestion()
-    #session['user_data']['task_data'] = showNextImageAndTask()
-
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     nextQuestion
@@ -114,7 +119,7 @@ def nextQuestion():
         return render_template('display_task.html', condition=condition,
                                task_data=session['user_data']['task_data'],
                                prov_meta=zip(session['user_data']['meta_data_titles'][current_question], session['user_data']['meta_data'][current_question]),
-                               question=current_question, pc=0) # updateProgress())
+                               question=current_question, pc=updateProgress())
     else:
         return render_template('final_feedback.html')
 
@@ -126,9 +131,10 @@ def nextQuestion():
 #
 #---------------------------------------------------------------------------------
 def updateProgress():
-    print(session['progress_bar'], file=sys.stderr)
-    print(session['progress_bar'][0], file=sys.stderr)
-    return 0
+    session['user_data']['prog'][0] += session['user_data']['prog'][1]
+    session.modified = True
+    return float(session['user_data']['prog'][0])
+
 #---------------------------------------------------------------------------------
 # FUNCTION:     populateQuestions()
 # INPUT:        void
@@ -191,7 +197,7 @@ def processAnswers():
     progress_pc += 3.57
 
     # TODO: Store given answers in DB and display post answers questions
-    return render_template('post_questions.html', condition=session['user_data']['condition'], task_data=session['user_data']['task_data'], pc=progress_pc)
+    return render_template('post_questions.html', condition=session['user_data']['condition'], task_data=session['user_data']['task_data'], pc=updateProgress())
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     finalComments

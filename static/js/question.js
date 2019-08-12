@@ -14,7 +14,7 @@
     // member vars
     questionManager.numGraphLiteracyQuestionBlocks = 9;
     questionManager.currentGLQuestionBlock = 1;
-    questionManager.startProgress = 7.14;
+    questionManager.startProgress = 5;
     questionManager.newProgressVal = 0;
 
     // display demographic questions
@@ -30,7 +30,7 @@
         currentBlock = questionBlockIdString + String(this.currentGLQuestionBlock);
         currentBlockElement = document.getElementById(currentBlock);
         currentBlockElement.style.display = "block";
-        this.newProgressVal += 3.57;
+        this.newProgressVal += 5;
         progressBar.style.width =  this.startProgress + this.newProgressVal + "%";
         progressBar.setAttribute("aria-valuenow", this.startProgress + this.newProgressVal);
     }
