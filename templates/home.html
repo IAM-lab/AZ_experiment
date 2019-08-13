@@ -10,14 +10,13 @@
             </div>
             <div class="col-sm-10 text-left" style="width:100%;">
                 <div class="banner-text">
-                    <br />
                     <div class="p-3 mb-2 bg-info text-whit info-box">
                         <h3><span class="glyphicon glyphicon-info-sign"></span> Please read the instructions carefully before starting:</h3>
                     </div>
                     <br>
                     <p>
-                        You are about to take part in an experiment conducted by the <strong>University of Manchester</strong> and the Advanced Analytics Centre at <strong>AstraZeneca</strong>.
-                        <br /><br />
+                        You are about to take part in an experiment conducted by the <strong>University of Manchester</strong> and <strong>AstraZeneca</strong>.
+                        <br />
                         <h4>Why do this study?</h4>
                         We believe better biomarker visualization tools are needed to support scientists and decision makers. Effective knowledge acquisition depends on technologies
                         that support the translation of biomarker data into readily understandable information. This process involves the interaction of access to data, its
@@ -26,7 +25,7 @@
                     </p>
                     <p>
                         <h4>What would we be asking you to do?</h4>
-                        During this experiment you will be asked to view a series of visualisations (8 in total) based on biomarker data. For each visualization, we would like you to complete a short task.
+                        During this experiment you will be asked to view a series of visualisations (4 in total) based on biomarker data. For each visualization, we would like you to complete a short task.
                         After each task is completed (an answer like “I could not answer” is also valid for completion), we would like to gather your feedback about it.
                     </p>
                     <p>
@@ -40,7 +39,15 @@
                     <button type="button" class="btn btn-dark" onclick="popupController.showPopup();">Read participant information</button>
                     <br /><br />
                     <form action="{{ url_for('getDemographicData') }}" method="POST">
-                        <button id="begin-study" type="submit" class="btn btn-dark" disabled>Begin study</button>
+                        <input id="begin-study" type="submit" class="btn btn-dark" disabled value="Begin study" />
+                        <br />
+                        <br />
+                        The follwoing is for <strong>TESTING ONLY</strong> and will not appear in the final experiment. Use this to select the experimental condition.
+                          <div class="radio">
+				                <label><input class="questionRadioButton" name="cond-selector" type="radio" value="cond0"> 0 - No provenance information</label><br>
+				                <label><input class="questionRadioButton" name="cond-selector" type="radio" value="cond1"> 1 - Negative provenance</label><br>
+				                <label><input class="questionRadioButton" name="cond-selector" type="radio" value="cond2"> 2 - Neutral provenance</label>
+                          </div>
                     </form>
                 </div>
             </div>
@@ -68,7 +75,21 @@
             </p>
             <h5 class="pis-left">Who will conduct the research?</h5>
             <p class="pis-text-para">
-                Dr Alan Davies, Interaction Analysis and Modelling Lab (LF1), Kilburn Building, University of Manchester, Oxford Road, M13 9PL.<br /> alan.davies-2@manchester.ac.uk
+                Dr. Alan Davies (Lecturer Health Data Science)<br />
+                School of Health Sciences, The University of Manchester<br />
+                Room 1.001 Vaughan House, Portsmouth Street, M13 9GB.<br />
+                <a href="mailto:alan.davies-2@manchester.ac.uk" target="_top">alan.davies-2@manchester.ac.uk</a><br />
+                (0161) 3067629<br /><br />
+                Dr. Kamilla Kopec-Harding (Research Software Engineer)<br />
+                Directorate of IT Services, The University of Manchester<br />
+                Room 1.17 Kilburn Building, Oxford Road, M13 9PL<br />
+                <a href="mailto:kamilla.kopec-harding@manchester.ac.uk" target="_top">kamilla.kopec-harding@manchester.ac.uk</a><br />
+                (0161) 2750671<br /><br />
+                Dr. Caroline Jay (Senior Lecturer Computer Science)<br />
+                School of Computer Science, The University of Manchester<br />
+                Office 2.30, Kilburn Building, Oxford Road, M13 9PL.<br />
+                <a href="mailto:caroline.jay@manchester.ac.uk" target="_top">caroline.jay@manchester.ac.uk</a><br />
+                (0161) 2750677
             </p>
             <h5 class="pis-left">What is the purpose of the research?</h5>
             <p class="pis-text-para">
@@ -84,19 +105,24 @@
             <h5 class="pis-left">What would I be asked to do if I took part?</h5>
             <p class="pis-text-para">
                 You will be asked to complete some initial questions about your demographics and professional background. Following this you will complete
-                a short survey that assesses your understanding of reading data from graphs (graph literacy). You will then be represented with 4 visualisations
-                twice randomly (you will see 8 visualisations in total). 4 of the visualisations will be accompanied by additional information about the visualisation and
-                4 will not. A question will be posed with each visualisation that involve extracting some information from the visualisation in order to answer
-                the question. Following each visualisation you will asked a few questions about the visualization. The study can be completed online. A subset of
-                people will be asked to complete this study in person and will additionally have their gaze (eye-movements) recorded with an eye-tracker. This will
-                only be used on people that are visited in person and not those that complete the survey online only.
+                a short standardized survey that assesses your understanding of reading data from graphs (called the graph literacy scale). You will then be
+                asked to complete 4 short tasks that will involve you using information presented using a visualisation. There are 4 of these tasks in total.
+                <br/><br/>
+                Participants are randomly allocated into one of 3 groups at the start of the experiment. The group will determine if you are shown additional
+                information with the visualisation or not. Following each task you will be asked a series of short questions relating to the task and what you
+                thought about it.
+                <br/><br/>
+                The study can be completed online at a time and place of your own choosing. Progress is not saved so you will need to complete the study in
+                a single sitting. We recommend that you allow up to 45 minutes for this. A subset of
+                participants will be asked to complete this study in person and will additionally have their gaze (eye-movements) recorded with an eye-tracker. This will
+                only be used with people that are visited in person and not those that complete the survey online only.
             </p>
             <h5 class="pis-left">What will happen to my personal information?</h5>
             <p class="pis-text-para">
                 Any personal information collected for this study is only accessible by the research team. We are collecting and storing this personal
                 information in accordance with the General Data Protection Regulation (GDPR) and Data Protection Act 2018 which legislate to protect
-                your personal information.  The legal basis upon which we are using your personal information is “public interest task” and
-                “for research purposes” if sensitive information is collected. For more information about the way we process your personal
+                your personal information.  The legal basis upon which we are using your personal information is "public interest task" and
+                "for research purposes", if sensitive information is collected. For more information about the way we process your personal
                 information and comply with data protection law please see our privacy notice for research participants:<br />
                 <a href="http://documents.manchester.ac.uk/display.aspx?DocID=37095" target="_blank">http://documents.manchester.ac.uk/display.aspx?DocID=37095</a>
             </p>
@@ -111,9 +137,10 @@
             </p>
             <h5 class="pis-left">Will my participation in the study be confidential?</h5>
             <p class="pis-text-para">
-                <ul>
-                    <li></li>
-                </ul>
+                Yes - your participation in the study will be kept confidential to the study team. We do not record your name or other personally identifiable information
+                using the survey. Participants will be allocated a code. For those taking part in the eye-tracking sub-group the code will be used to match their
+                questionnaire data to their eye-tracking data. Names will not be associated with the data at any point.
+                Once we have collected the data, we will not know which individual it belongs to.
             </p>
             <h5 class="pis-left">What happens to the data collected?</h5>
             <p class="pis-text-para">
@@ -127,9 +154,9 @@
             </p>
             <h5 class="pis-left">What happens if I do not want to take part or if I change my mind?</h5>
             <p class="pis-text-para">
-                It is up to you to decide whether or not to take part. If you do decide to take part you will be given this information sheet to keep and be asked to check the box below
+                It is up to you to decide whether or not to take part. If you do decide to take part you will be asked to check the box below
                 to indicate that you have read and understood this information and consent to take part.
-                If you decide to take part you are still free to withdraw at any time without giving a reason and without detriment to yourself.
+                If you decide to take part, you are still free to withdraw at any time without giving a reason and without detriment to yourself.
                 However, it will not be possible to remove your data from the project once it has been anonymised and forms part of the dataset,
                 as we will not be able to identify your specific data. This does not affect your data protection rights.
             </p>
@@ -157,7 +184,8 @@
             <h5 class="pis-left">Where will the research be conducted?</h5>
             <p class="pis-text-para">
                 The study will carried out online at a time and place of your convenience unless you are part of the eye-tracking arm. In this instance
-                the study will be carried out at your place in a suitable area (quiet room free of distractions).
+                the study will be carried out at either your place of work in a suitable area (quiet room free of distractions) or at a University of Manchester
+                room or area equipped for carrying out research (i.e. a lab or quiet room).
             </p>
             <h5 class="pis-left">Will the outcomes of the research be published?</h5>
             <p class="pis-text-para">
@@ -171,19 +199,31 @@
             <p class="pis-text-para">
                 <span class="uline">Minor complaints</span>
                 <br />
-                If you have a minor complaint then you need to contact the researcher(s) in the first instance:
-                <ul>
-                    <li>
-                        <strong>
-                            Dr Alan Davies, Interaction Analysis and Modelling Lab (LF1), Kilburn Building, University of Manchester, Oxford Road, M13 9PL. alan.davies-2@manchester.ac.uk (0161 2756239)
-                        </strong>
-                    </li>
-                    <li>
-                        <strong>
-                            Dr Caroline Jay, School of Computer Science, Office 2.30, Kilburn Building, University of Manchester, Oxford Road, M13 9PL caroline.jay@manchester.ac.uk (0161 2750677)
-                        </strong>
-                    </li>
-                </ul>
+                If you have a minor complaint then you need to contact the researcher(s) in the first instance:<br /><br />
+                <strong>
+                    Dr. Alan Davies (Lecturer Health Data Science)<br />
+                    School of Health Sciences, The University of Manchester<br />
+                    Room 1.001 Vaughan House, Portsmouth St, M13 9GB.<br />
+                    <a href="mailto:alan.davies-2@manchester.ac.uk" target="_top">alan.davies-2@manchester.ac.uk</a><br />
+                    (0161) 3067629
+                </strong>
+                <br /><br />
+                <strong>
+                    Dr. Caroline Jay (Senior Lecturer Computer Science)<br />
+                    School of Computer Science, The University of Manchester<br />
+                    Office 2.30, Kilburn Building, Oxford Road, M13 9PL.<br />
+                    <a href="mailto:caroline.jay@manchester.ac.uk" target="_top">caroline.jay@manchester.ac.uk</a><br />
+                    (0161) 2750677
+                </strong>
+                <br /><br />
+                <strong>
+                    Dr. Kamilla Kopec-Harding (Research Software Engineer)<br />
+                    Directorate of IT Services, The University of Manchester<br />
+                    Room 1.17 Kilburn Building, Oxford Road, M13 9PL<br />
+                    <a href="mailto:kamilla.kopec-harding@manchester.ac.uk" target="_top">kamilla.kopec-harding@manchester.ac.uk</a><br />
+                    (0161) 2750671
+                </strong>
+                <br /><br />
             </p>
             <span class="uline">Formal Complaints</span>
             <p class="pis-text-para">
@@ -194,7 +234,7 @@
         </div>
         <br />
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="consent-check" disabled onclick="popupController.consented();">
+            <input type="checkbox" class="custom-control-input" id="consent-check" onclick="popupController.consented();">
             <label class="custom-control-label" for="consent-check">I have read the participant information and agree to take part</label>
         </div>
 

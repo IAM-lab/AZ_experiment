@@ -3,8 +3,8 @@ NAME:          app.py
 AUTHOR:        Dr. Alan Davies (Lecturer Health Data Science)
 PROFILE:       https://www.research.manchester.ac.uk/portal/alan.davies-2.html
 DATE:          05/02/2019
-INSTITUTION:   Interaction Analysis and Modelling Lab (IAM), University of Manchester
-DESCRIPTION:   Flask main page.
+INSTITUTION:   School of Health Sciences/Interaction Analysis and Modelling Lab (IAM), University of Manchester
+DESCRIPTION:   Flask main page. Returns the various views of the website and stores user responses in database
                http://127.0.0.1:5000/
 """
 import os, sys, random, re
@@ -16,7 +16,6 @@ from django.utils.safestring import mark_safe
 # set db base directory
 basedir = os.path.abspath(os.path.dirname(__file__))
 n_images = 4
-progress_pc = 39.27
 
 FLASK_DEBUG = 1
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -55,6 +54,21 @@ def home():
 #---------------------------------------------------------------------------------
 @app.route('/demographic_data', methods=['POST'])
 def getDemographicData():
+    ## ------------ FOR TESTING ONLY ------------------------------##
+    form = request.form
+    for key in form.keys():
+        for value in form.getlist(key):
+            print(key, value, file=sys.stderr)
+            if "cond0" in value:
+                session['user_data']['condition'] = 0
+            elif "cond1" in value:
+                session['user_data']['condition'] = 1
+            elif "cond2" in value:
+                session['user_data']['condition'] = 2
+
+    session.modified = True
+    print("Condition:", session['user_data']['condition'], file=sys.stderr)
+    ## ------------ FOR TESTING ONLY ------------------------------##
     return render_template('demo_data.html')
 
 #---------------------------------------------------------------------------------
@@ -72,14 +86,14 @@ def graphLiteracyScale():
 # FUNCTION:     initStudy()
 # INPUT:        void
 # OUTPUT:       void
-# DESCRIPTION:  Setup the session data strurcures for the app.
+# DESCRIPTION:  Setup the session data structures for the app.
 #
 #---------------------------------------------------------------------------------
 def initStudy():
     # pick a random condition 0 (no prov), 1 (negative prov) or 2 (neutral prov)
     selected_condition = random.randint(0, 2)
 
-    # setup experimental conditions and load task images & questions
+    # setup experimental conditions
     session['user_data'] = dict()
     session['user_data'].update({'condition': selected_condition})
     session['user_data'].update({'task_data': None})
@@ -90,8 +104,8 @@ def initStudy():
 # FUNCTION:     beginStudy()
 # INPUT:        void
 # OUTPUT:       template
-# DESCRIPTION:  Setup the study.
-#
+# DESCRIPTION:  Setup the study. Populate the questions and display the initial
+#               task
 #---------------------------------------------------------------------------------
 @app.route('/begin_study', methods=['POST'])
 def beginStudy():
@@ -102,7 +116,7 @@ def beginStudy():
 # FUNCTION:     nextQuestion
 # INPUT:        void
 # OUTPUT:       template
-# DESCRIPTION:  Main experimental loop. Keeps shoing new questions until we
+# DESCRIPTION:  Main experimental loop. Keeps showing new questions until we
 #               run out then changes condition. If both conditions done show end page
 # ---------------------------------------------------------------------------------
 @app.route('/next_question', methods=['POST'])
@@ -156,12 +170,12 @@ def populateQuestions():
     # main meta data titles
     session['user_data'].update({'meta_data_titles': [['Patient population:','Data collection period:','Countries:','Median follow-up time (method):','Number of events n(%):','Censored observations n(%):','Median survival time (months):'],
                                                       ['Patient population:','Biomarker type:','Sample characteristics:','Year of publication:','Countries:','Plot Footer:'],
-                                                      ['Follow-up period:','Enrolment period:','Number of Patients:','Sample characteristics:','Biomarker type:','Year of publication of results:','Countries:','Patient population:'],
+                                                      ['Patient population:','Follow-up period:','Enrolment period:','Number of Patients:','Sample characteristics:','Biomarker type:','Year of publication of results:','Countries:'],
                                                       ['Patient population:','Number of Patients:','Number of Samples:','Sample characteristics:','DNA-matched normal controls available?','Year of publication of results:','Countries:','Note:']]})
     # meta data
     session['user_data'].update({'meta_data': [['Retrospective study on patients diagnosed with clinical stage II/III  cancer "J", aged 18-65.','1996-2004','Germany, UK, Norway','15.1 (all patients)',mark_safe('Biomarker+ 44(55)<br />Biomarker- 54(68)'),mark_safe('Biomarker+ 36(45)<br />Biomarker- 26(33)'),mark_safe('Biomarker+ 24.4<br />Biomarker- 18.1')],
                                                ['Metastatic or locally advanced cancer "K", age 18-65 (all studies)','genetic alteration','Formalin-fixed paraffin-embedded (FFPE) primary tumour tissue (all studies)','2015',mark_safe('UK (S1,S4)<br />USA (S2,S3,S5)<br />Norway (S6)'),'Test for interaction between biomarker status and treatment (full dataset): p-value=0.44'],
-                                               ['~1 year','2012-2016','300','Blood sample','Protein','2018','France, USA, Sweeden','A prospective cohort study in patients diagnosed with cardiovascular disease "A", aged 20-70.'],
+                                               ['A prospective cohort study in patients diagnosed with cardiovascular disease "A", aged 20-70.','~1 year','2012-2016','300','Blood sample','Protein','2018','France, USA, Sweden'],
                                                ['Patients diagnosed with cancer "D", aged 20-65.','80','80','Primary tumour samples derived from fresh frozen tissue','Yes','2018','Germany, USA, Denmark','Queried genes are altered in 42 (53%) of queried patients (80) in total']]})
 
     session.modified = True
@@ -170,7 +184,7 @@ def populateQuestions():
 # FUNCTION:     showNextImageAndTask()
 # INPUT:        void
 # OUTPUT:       Tuple
-# DESCRIPTION:  Pop another image form the array
+# DESCRIPTION:  Pop another image/task form the array and return them
 #
 #---------------------------------------------------------------------------------
 def showNextImageAndTask():
@@ -186,17 +200,13 @@ def showNextImageAndTask():
 
 # ---------------------------------------------------------------------------------
 # FUNCTION:     processAnswers()
-# INPUT:
-# OUTPUT:
-# DESCRIPTION:
+# INPUT:        void
+# OUTPUT:       template
+# DESCRIPTION:  Show the post task questions
 #
 # ---------------------------------------------------------------------------------
 @app.route('/submit_answer', methods=['POST'])
 def processAnswers():
-    global progress_pc
-    progress_pc += 3.57
-
-    # TODO: Store given answers in DB and display post answers questions
     return render_template('post_questions.html', condition=session['user_data']['condition'], task_data=session['user_data']['task_data'], pc=updateProgress())
 
 # ---------------------------------------------------------------------------------

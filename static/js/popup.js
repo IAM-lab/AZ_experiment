@@ -30,7 +30,6 @@ function PopupController()
                 if(Math.round($(this).scrollTop() + $(this).innerHeight()) >= $(this)[0].scrollHeight - 10) {
                     $('#consent-check').prop('disabled', false);
                     popupController.consentAgreed = true;
-                    console.log("HERE!!!!");
                 }
             })
         });
@@ -68,9 +67,7 @@ function PopupController()
     // on consent given
     popupController.consented = function()
     {
-        if(this.consentAgreed) {
-            $('#pis-popup-ok').prop('disabled', false);
-        }
+        $('#pis-popup-ok').prop('disabled', false);
     }
 
     // enable start study

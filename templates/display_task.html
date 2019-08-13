@@ -13,10 +13,53 @@
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width:{{pc}}%" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
+                {% if task_data[0] == "images/graph0.png" %}
+                <p>
+                    The figure summarizes the survival estimates for a study of patients diagnosed with cancer "J".<br />
+                    The Kaplan-Meier survival curve for each patient group (Biomarker positive/ Biomarker negative)<br />
+                    is shown as a solid line, with the corresponding 95% confidence band.
+                </p>
+                {% elif task_data[0] == "images/graph1.png" %}
+                <p>
+                   The figure shows the results of a meta-analysis of 7 randomized clinical trials that evaluated<br />
+                    the effect of a certain genetic biomarker status as a benefit from drug A treatment in patients<br />
+                    with metastatic cancer "K". The hazard ratio was used to represent the comparative treatment effect<br />
+                    on survival outcomes for drug A therapy compared with drug B therapy, which represents the standard treatment.<br /><br />
+                    Patients that carry the mutation are shown as Biomarker +. Patients that do not carry the mutation<br />
+                    (i.e. are wild type) are shown as Biomarker -.
+                    <br /><br />The confidence intervals for the effect estimate is represented by horizontal lines. Each square (or diamond<br />
+                    is centred on the effect size, and the area of the square (or diamond) is proportional to the size of the study.<br />
+                    OS = Overall survival. Tx = Treatment. Evidence for treatment effect modification (i.e., a predictive biomarker)<br />
+                    by biomarker status was evaluated by a test of interaction.
+                </p>
+                {% elif task_data[0] == "images/graph2.png" %}
+                <p>
+                   The figure displays results of a network analysis to identify novel biomarkers for differential diagnosis<br />
+                   of a certain cardiovascular disease, "A". Nodes represent either a biomarker or a disease subtype.<br />
+                    Links between nodes indicate the existence of a statistically significant correlation between them<br />
+                   (positive, continuous lines; negative, dashed lines), whereas their width is proportional<br />
+                    to the strength of the correlation.
+                </p>
+                {% elif task_data[0] == "images/graph3.png" %}
+                <p>
+                    The figure summarizes genomic alterations across a set of patients diagnosed with cancer "D", based on a<br />
+                    query of the four genes (Gene01, Gene02, Gene03, and Gene04).<br /><br />
+                    Distinct genomic alterations are colour coded and summarized as % changes in particular affected genes<br />
+                    in individual tumour samples. Each row represents a gene, and each column represents a patient.
+                </p>
+                {% endif %}
 
                 <form action="{{ url_for('processAnswers') }}" method="POST"> <!-- onsubmit="return checkNumeracyQuestions(7);">-->
                     <!-- if images/graph -->
-                    <img class="question-img" src="{{ url_for('static', filename=task_data[0]) }}" />
+                    {% if task_data[0] == "images/graph3.png" %}
+                        <img class="question-img-large" src="{{ url_for('static', filename=task_data[0]) }}" />
+                    {% else %}
+                        <img class="question-img" src="{{ url_for('static', filename=task_data[0]) }}" />
+                    {% endif %}
+
+                    {% if task_data[0] == "images/graph1.png" %}
+                        <p>Test for interaction between biomarker status and treatment (full dataset): p-value=0.44</p>
+                    {% endif %}
                     <br /><br />
                     <div class="question-generic">
                         <p>{{ task_data[1] }}</p>
@@ -28,15 +71,10 @@
                         <button type="submit" class="btn btn-success next-button">Submit answer</button>
                     </div>
                 <br />
-question = {{ question }}, Condition = {{ condition }}
-
-
                 </form>
             </div>
             <div class="col-sm-1 sidenav">
             </div>
-
-
             <div id="popup-prov-metadata">
                <p>
                 {% for i, j in prov_meta %}
@@ -48,8 +86,6 @@ question = {{ question }}, Condition = {{ condition }}
 
             {% if condition != 0 %}
             <div id="popup-prov-data">
-                <br />
-                <br />
                 <p>
                     Filter
                     <!-- negative provenance KMC -->
